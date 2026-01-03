@@ -1,0 +1,38 @@
+name: Flatpak CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "data/**"
+      - "types/**"
+      - "meson.build"
+      - "meson_options.txt"
+      - "io.github.senbrua.json"
+      - ".github/workflows/flatpak.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "data/**"
+      - "types/**"
+      - "meson.build"
+      - "meson_options.txt"
+      - "io.github.senbrua.json"
+
+jobs:
+  flatpak:
+    name: Build Flatpak
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          manifest-path: io.github.senbrua.json
+          cache-key: flatpak-builder-${{ runner.os }}
+          bundle: senbrua.flatpak
+          branch: main

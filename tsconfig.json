@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "noEmitOnError": false,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
+    "resolveJsonModule": true,
+    "paths": {
+      "*": ["*", "types/*", "gi-types/*"]
+    },
+    "target": "ES2020",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "module": "ES2020",
+    "outDir": "_build",
+    "lib": ["ES2020"],
+    "skipLibCheck": true,
+    "typeRoots": ["types", "gi-types"]
+  },
+  "include": ["types/**/*.ts", "types/**/*.d.ts", "gi-types/**/*.d.ts", "src/**/*.ts"],
+  "exclude": ["node_modules/@types/**"]
+}

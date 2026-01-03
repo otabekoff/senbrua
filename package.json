@@ -1,0 +1,32 @@
+{
+    "name": "senbrua",
+    "version": "1.0.0",
+    "description": "A simple, modern sound recorder for GNOME",
+    "main": "src/main.ts",
+    "scripts": {
+        "lint": "eslint src --ext .ts",
+        "lint:fix": "eslint src --ext .ts --fix",
+        "format": "prettier --write 'src/**/*.ts'"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/senbrua/senbrua"
+    },
+    "keywords": [
+        "gnome",
+        "sound-recorder",
+        "audio",
+        "gjs",
+        "gtk4",
+        "libadwaita"
+    ],
+    "author": "Senbrua Contributors",
+    "license": "GPL-3.0-or-later",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "eslint": "^8.0.0",
+        "prettier": "^3.0.0",
+        "typescript": "^5.0.0"
+    }
+}

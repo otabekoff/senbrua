@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>@app-id@</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Senbrua</name>
+  <summary>Record sound via the microphone and play it back</summary>
+  <description>
+    <p>
+      Senbrua is a simple, modern sound recorder application for GNOME.
+      It allows you to record audio using your microphone and play it back.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Record audio in multiple formats (Opus, Vorbis, FLAC, MP3)</li>
+      <li>Playback recordings with waveform visualization</li>
+      <li>Rename and export recordings</li>
+      <li>Modern GNOME design with libadwaita</li>
+    </ul>
+  </description>
+  <url type="homepage">https://github.com/senbrua/senbrua</url>
+  <url type="bugtracker">https://github.com/senbrua/senbrua/issues</url>
+  <developer_name>Senbrua Contributors</developer_name>
+  <translation type="gettext">@gettext-package@</translation>
+  <launchable type="desktop-id">@app-id@.desktop</launchable>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="1.0.0" date="2024-01-01">
+      <description>
+        <p>Initial release of Senbrua</p>
+      </description>
+    </release>
+  </releases>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+</component>

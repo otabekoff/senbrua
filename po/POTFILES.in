@@ -1,0 +1,16 @@
+# List of source files containing translatable strings
+data/io.github.senbrua.desktop.in.in
+data/io.github.senbrua.metainfo.xml.in.in
+data/io.github.senbrua.gschema.xml.in
+data/ui/window.ui
+data/ui/recorder.ui
+data/ui/row.ui
+data/ui/help-overlay.ui
+src/application.ts
+src/window.ts
+src/recorder.ts
+src/recorderWidget.ts
+src/recording.ts
+src/recordingList.ts
+src/recordingListWidget.ts
+src/row.ts

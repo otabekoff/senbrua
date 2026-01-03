@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/io/github/senbrua">
+        <file>style.css</file>
+        <file preprocess="xml-stripblanks">ui/recorder.ui</file>
+        <file preprocess="xml-stripblanks">ui/row.ui</file>
+        <file preprocess="xml-stripblanks">ui/window.ui</file>
+        <file preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/help-overlay.ui</file>
+    </gresource>
+    <gresource prefix="/io/github/senbrua/icons/scalable/actions">
+        <file compressed="true" preprocess="xml-stripblanks" alias="skip-back-symbolic.svg">icons/hicolor/symbolic/actions/skip-back-symbolic.svg</file>
+        <file compressed="true" preprocess="xml-stripblanks" alias="skip-forward-symbolic.svg">icons/hicolor/symbolic/actions/skip-forward-symbolic.svg</file>
+    </gresource>
+</gresources>

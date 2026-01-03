@@ -1,0 +1,58 @@
+# Build directories
+build/
+builddir/
+_build/
+.flatpak-builder/
+.flatpak/
+repo/
+buildrepo/
+
+# TypeScript output
+tsc-out/
+*.js.map
+
+# Node modules
+node_modules/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Compiled GSettings schemas
+*.compiled
+gschemas.compiled
+
+# Compiled GResource files
+*.gresource
+
+# Generated files
+compile_commands.json
+*.pot
+
+# Distribution tarballs
+*.tar.gz
+*.tar.xz
+*.tar.bz2
+
+# Flatpak
+*.flatpak
+.flatpak-builder/
+
+# Snap
+*.snap
+parts/
+prime/
+stage/
+squashfs-root/
+
+# Debug logs
+*.log
+
+# Personal notes
+INSTRUCTIONS.md
+TODO.md
+NOTES.md

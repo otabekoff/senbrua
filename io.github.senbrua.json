@@ -1,0 +1,65 @@
+{
+    "app-id": "io.github.senbrua",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "46",
+    "sdk": "org.gnome.Sdk",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.node20",
+        "org.freedesktop.Sdk.Extension.typescript"
+    ],
+    "command": "senbrua",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--socket=pulseaudio",
+        "--device=dri",
+        "--filesystem=xdg-music:rw",
+        "--filesystem=xdg-download:rw"
+    ],
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "build-options": {
+        "append-path": "/usr/lib/sdk/node20/bin:/usr/lib/sdk/typescript/bin"
+    },
+    "modules": [
+        {
+            "name": "gst-plugins-good",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dauto_features=disabled",
+                "-Dflac=enabled",
+                "-Dlame=enabled",
+                "-Dpulse=enabled",
+                "-Doss=disabled"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.24.0.tar.xz",
+                    "sha256": "f9d79cf23454e7d91fd7f0cda1c58ebf685e1ff6af1c13df9e4b39b7c94e8a17"
+                }
+            ]
+        },
+        {
+            "name": "senbrua",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/senbrua/senbrua.git",
+                    "tag": "v1.0.0"
+                }
+            ]
+        }
+    ]
+}

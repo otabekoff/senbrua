@@ -1,0 +1,79 @@
+name: senbrua
+version: "1.0.0"
+summary: A simple, modern sound recorder for GNOME
+description: |
+  Senbrua is a simple and elegant sound recorder application for the GNOME 
+  desktop. It allows you to record audio using your microphone and play it 
+  back with a beautiful waveform visualization.
+
+  Features:
+  - Record audio in multiple formats (Opus, Vorbis, FLAC, MP3)
+  - Playback recordings with interactive waveform visualization
+  - Rename recordings for easy organization
+  - Export recordings to your preferred location
+  - Dark mode support with libadwaita
+  - Responsive design - works on desktop and mobile
+
+grade: stable
+confinement: strict
+base: core24
+compression: lzo
+
+slots:
+  senbrua:
+    interface: dbus
+    bus: session
+    name: io.github.senbrua
+
+apps:
+  senbrua:
+    command: usr/local/bin/senbrua
+    extensions: [gnome]
+    plugs:
+      - audio-record
+      - audio-playback
+      - home
+      - removable-media
+    desktop: usr/local/share/applications/io.github.senbrua.desktop
+    common-id: io.github.senbrua
+
+parts:
+  senbrua:
+    plugin: meson
+    source: .
+    meson-parameters:
+      - --prefix=/usr/local
+    build-packages:
+      - meson
+      - ninja-build
+      - gettext
+      - libgjs-dev
+      - libgtk-4-dev
+      - libadwaita-1-dev
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libgstreamer-plugins-good1.0-dev
+      - gobject-introspection
+      - gir1.2-gstreamer-1.0
+      - gir1.2-gst-plugins-base-1.0
+      - gir1.2-gst-plugins-bad-1.0
+      - gir1.2-adw-1
+      - gir1.2-gtk-4.0
+      - npm
+      - nodejs
+    stage-packages:
+      - gjs
+      - gir1.2-gstreamer-1.0
+      - gir1.2-gst-plugins-base-1.0
+      - gir1.2-gst-plugins-bad-1.0
+      - gir1.2-adw-1
+      - gir1.2-gtk-4.0
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-pulseaudio
+    override-build: |
+      # Install TypeScript
+      npm install -g typescript
+      craftctl default
+    organize:
+      usr/local/share/io.github.senbrua: usr/share/io.github.senbrua
