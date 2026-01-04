@@ -30,18 +30,8 @@ jobs:
       - name: Install snapcraft
         run: sudo snap install --classic snapcraft
 
-      - name: Setup LXD
-        run: |
-          sudo snap install lxd
-          sudo lxd init --auto
-          sudo usermod -a -G lxd $USER
-          sleep 2
-          sg lxd -c 'lxc network list' || true
-
       - name: Build Snap
-        run: |
-          sudo snap set system experimental.enable-kernel-security-hooks=false || true
-          sg lxd -c 'snapcraft pack --use-build-base'
+        run: snapcraft pack --destructive-mode
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
