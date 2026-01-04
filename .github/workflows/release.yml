@@ -3,13 +3,13 @@ name: Build & Release All Packages
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g., 1.0.0)'
+        description: "Version to release (e.g., 1.0.0)"
         required: false
-        default: ''
+        default: ""
 
 env:
   APP_ID: uz.mohirlab.senbrua
@@ -43,7 +43,7 @@ jobs:
             meson ninja-build \
             libgtk-4-dev libadwaita-1-dev \
             libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
-            gjs gir1.2-gtk-4.0 gir1.2-adw-1 \
+            gjs libgjs-dev gir1.2-gtk-4.0 gir1.2-adw-1 \
             gettext appstream-util desktop-file-utils \
             dpkg-dev fakeroot
 
@@ -56,10 +56,10 @@ jobs:
         run: |
           VERSION=${{ steps.version.outputs.version }}
           PKG_DIR="${APP_ID}_${VERSION}-1_amd64"
-          
+
           # Install to package directory
           DESTDIR="$(pwd)/${PKG_DIR}" ninja -C builddir install
-          
+
           # Create DEBIAN control file
           mkdir -p "${PKG_DIR}/DEBIAN"
           cat > "${PKG_DIR}/DEBIAN/control" << EOF
@@ -76,7 +76,7 @@ jobs:
            Features include noise reduction, multiple audio formats, and real-time
            waveform visualization.
           EOF
-          
+
           # Build the package
           dpkg-deb --build "${PKG_DIR}"
           mv "${PKG_DIR}.deb" "${APP_ID}_${VERSION}-1_amd64.deb"
@@ -142,7 +142,7 @@ jobs:
             meson ninja-build \
             libgtk-4-dev libadwaita-1-dev \
             libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
-            gjs gir1.2-gtk-4.0 gir1.2-adw-1 \
+            gjs libgjs-dev gir1.2-gtk-4.0 gir1.2-adw-1 \
             gettext appstream-util desktop-file-utils \
             libfuse2 file
 
@@ -160,10 +160,10 @@ jobs:
         run: |
           VERSION=${{ needs.build-deb.outputs.version }}
           APPDIR="AppDir"
-          
+
           # Install to AppDir
           DESTDIR="$(pwd)/${APPDIR}" ninja -C builddir install
-          
+
           # Create AppRun
           cat > "${APPDIR}/AppRun" << 'EOF'
           #!/bin/bash
@@ -173,7 +173,7 @@ jobs:
           export LD_LIBRARY_PATH="${HERE}/usr/lib:${HERE}/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
           export XDG_DATA_DIRS="${HERE}/usr/share:${XDG_DATA_DIRS}"
           export GI_TYPELIB_PATH="${HERE}/usr/lib/girepository-1.0:${GI_TYPELIB_PATH}"
-          
+
           # Find and run the application
           if [ -f "${HERE}/usr/local/bin/senbrua" ]; then
               exec "${HERE}/usr/local/bin/senbrua" "$@"
@@ -185,12 +185,12 @@ jobs:
           fi
           EOF
           chmod +x "${APPDIR}/AppRun"
-          
+
           # Copy icon and desktop file
           mkdir -p "${APPDIR}"
           cp data/icons/hicolor/scalable/apps/uz.mohirlab.senbrua.svg "${APPDIR}/uz.mohirlab.senbrua.svg" || true
           cp builddir/data/uz.mohirlab.senbrua.desktop "${APPDIR}/uz.mohirlab.senbrua.desktop" || true
-          
+
           # Create AppImage
           ARCH=x86_64 ./appimagetool-x86_64.AppImage --appimage-extract-and-run "${APPDIR}" "senbrua-${VERSION}-x86_64.AppImage"
 
@@ -224,19 +224,19 @@ jobs:
       - name: Update APT repository
         run: |
           VERSION=${{ needs.build-deb.outputs.version }}
-          
+
           # Create directory structure
           mkdir -p apt-repo/pool/main/s/senbrua
           mkdir -p apt-repo/dists/focal/main/binary-amd64
-          
+
           # Copy package
           cp *.deb apt-repo/pool/main/s/senbrua/
-          
+
           # Generate Packages file
           cd apt-repo
           apt-ftparchive packages pool > dists/focal/main/binary-amd64/Packages
           gzip -c dists/focal/main/binary-amd64/Packages > dists/focal/main/binary-amd64/Packages.gz
-          
+
           # Generate Release file
           cat > dists/focal/Release << EOF
           Origin: Senbrua
@@ -261,7 +261,8 @@ jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-24.04
-    needs: [build-deb, build-flatpak, build-snap, build-appimage, update-apt-repo]
+    needs:
+      [build-deb, build-flatpak, build-snap, build-appimage, update-apt-repo]
     permissions:
       contents: write
     steps:
