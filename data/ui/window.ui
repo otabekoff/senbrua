@@ -37,7 +37,7 @@
                           <object class="AdwStatusPage" id="emptyPage">
                             <property name="title" translatable="yes">Add Recordings</property>
                             <property name="description" translatable="yes">Use the
-                              &lt;b&gt;Record&lt;/b&gt; button to make sound recordings</property>
+                              &lt;b&gt;Record&lt;/b&gt; button to make sound recordings.</property>
                           </object>
                         </property>
                       </object>

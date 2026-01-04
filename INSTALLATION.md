@@ -11,23 +11,26 @@ git clone https://github.com/otabekoff/senbrua.git
 cd senbrua
 meson setup builddir
 meson compile -C builddir
-sudo ninja -C builddir install
-```
-
-Run the app:
-```bash
+meson compile -C builddir run   # optional: launch without installing
+sudo meson install -C builddir
 senbrua
 ```
 
 **Requirements:**
-- GCC/Clang compiler
-- meson 0.63+
-- ninja
-- libgtk-4-dev
-- libadwaita-1-dev
-- libgstreamer1.0-dev
-- node-typescript
-- npm
+- Meson 0.63+ and Ninja
+- GJS 1.54+
+- GTK 4, libadwaita 1, GStreamer 1.0 (player, pbutils)
+- TypeScript 5+ (or use `-Dskip_ts=true`)
+- Standard build toolchain (gcc/clang, pkg-config)
+
+**Ubuntu/Debian build dependencies**
+
+```bash
+sudo apt install meson ninja-build gjs libgtk-4-dev libadwaita-1-dev \
+	libgstreamer1.0-dev libgstreamer-plugins-good1.0-dev \
+	libgstreamer-plugins-bad1.0-dev gobject-introspection gir1.2-gstreamer-1.0 \
+	gir1.2-adw-1 node-typescript
+```
 
 ---
 

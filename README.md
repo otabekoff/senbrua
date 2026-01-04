@@ -87,10 +87,34 @@ senbrua
 For development with additional debugging features:
 
 ```bash
-meson setup builddir -Dprofile=development
+meson setup builddir -Dprofile=development --reconfigure
 meson compile -C builddir
 sudo meson install -C builddir
 ```
+
+### Running from the Build Tree
+
+During development you can launch Senbrua without installing:
+
+```bash
+meson compile -C builddir run
+```
+
+The `run` target wraps `gjs -m builddir/src/uz.mohirlab.senbrua` with the right environment, so it works even when the launcher script is not installed system-wide.
+
+If you prefer to avoid Meson’s stack trace when cancelling with `Ctrl+C`, run the helper script instead:
+
+```bash
+./tools/dev-run.sh
+```
+
+### Additional Installation Methods
+
+See [INSTALLATION.md](INSTALLATION.md) for Flatpak, Snap, Debian packages, and other distribution-specific instructions.
+
+### Release and Store Submission
+
+Publishing guides for Flathub, Snapcraft, and Debian/Ubuntu repositories live in [INSTRUCTIONS.md](INSTRUCTIONS.md#publishing).
 
 ### Snap
 

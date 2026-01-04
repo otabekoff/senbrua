@@ -78,7 +78,7 @@ else
 endif
 
 run_target('run',
-  command: app,
+  command: [gjs_console, '-m', app],
   depends: [
     data_res,
     src_res,

@@ -56,6 +56,24 @@ data_res = gnome.compile_resources(
   install: true
 )
 
+screenshot_files = [
+  'screenshots/1_no_recordings.png',
+  'screenshots/2_recording.png',
+  'screenshots/3_after_recording_stopped.png',
+  'screenshots/4_recordings_list_preview.png',
+  'screenshots/5_shortcuts_window.png',
+  'screenshots/6_light_mode.png',
+  'screenshots/7_app_info.png',
+  'screenshots/8_credits.png',
+]
+
+foreach screenshot : screenshot_files
+  install_data(
+    screenshot,
+    install_dir: senbrua_datadir / 'metainfo' / 'media' / application_id
+  )
+endforeach
+
 metainfo_conf = configuration_data()
 metainfo_conf.set('app-id', application_id)
 metainfo_conf.set('gettext-package', gettext_package)

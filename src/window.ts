@@ -99,9 +99,8 @@ export class Window extends Adw.ApplicationWindow {
         this.recorderWidget = new RecorderWidget(this.recorder);
         this._mainStack.add_named(this.recorderWidget, "recorder");
 
-        const dispatcher = GstPlayer.PlayerGMainContextSignalDispatcher.new(
-            null,
-        );
+        const dispatcher =
+            GstPlayer.PlayerGMainContextSignalDispatcher.new(null);
         this.player = GstPlayer.Player.new(null, dispatcher);
         this.player.connect("end-of-stream", () => this.player.stop());
 

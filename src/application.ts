@@ -161,9 +161,7 @@ export class Application extends Adw.Application {
             website: "https://github.com/otabekoff/senbrua",
             issue_url: "https://github.com/otabekoff/senbrua/issues",
             license_type: Gtk.License.GPL_3_0,
-            developers: [
-                "Otabek Sadiridinov <sadiridinovotabek@gmail.com>",
-            ],
+            developers: ["Otabek Sadiridinov <sadiridinovotabek@gmail.com>"],
             designers: [
                 "Reda Lazri <the.red.shortcut@gmail.com>",
                 "Garrett LaSage <garrettl@gmail.com>",
@@ -194,7 +192,9 @@ export class Application extends Adw.Application {
             "MohirLab",
             null,
             Gtk.License.CUSTOM,
-            _("An open source company and community dedicated to building free and accessible software for everyone."),
+            _(
+                "An open source company and community dedicated to building free and accessible software for everyone.",
+            ),
         );
 
         aboutDialog.present(this.window);

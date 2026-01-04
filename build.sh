@@ -1,310 +1,295 @@
-#!/bin/bash
-# Senbrua Build and Publish Script
-# This script handles building, testing, and publishing Senbrua
+#!/usr/bin/env bash
+# Senbrua build helper
 
-set -e
+set -euo pipefail
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
-
-# Project info
 PROJECT_NAME="Senbrua"
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VERSION=$(grep -oP "version: '\K[^']+" "$PROJECT_DIR/meson.build" | head -1)
 
-print_header() {
-    echo -e "\n${BLUE}========================================${NC}"
-    echo -e "${BLUE}  $1${NC}"
-    echo -e "${BLUE}========================================${NC}\n"
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+heading() {
+    echo -e "\n${BLUE}== $1 ==${NC}\n"
 }
 
-print_success() {
+success() {
     echo -e "${GREEN}✓ $1${NC}"
 }
 
-print_warning() {
-    echo -e "${YELLOW}⚠ $1${NC}"
+warn() {
+    echo -e "${YELLOW}• $1${NC}"
 }
 
-print_error() {
-    echo -e "${RED}✗ $1${NC}"
+error() {
+    echo -e "${RED}✗ $1${NC}" >&2
 }
 
-# Check dependencies
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
 check_dependencies() {
-    print_header "Checking Dependencies"
+    heading "Dependency check"
+    local required=(meson ninja gjs)
+    local optional=(npm flatpak-builder snapcraft dpkg-buildpackage)
+    local missing_required=()
+    local missing_optional=()
 
-    local deps=("meson" "ninja" "npm" "gjs" "flatpak-builder")
-    local missing=()
-
-    for dep in "${deps[@]}"; do
-        if command -v "$dep" &> /dev/null; then
-            print_success "$dep found"
-        else
-            print_warning "$dep not found"
-            missing+=("$dep")
-        fi
+    for dep in "${required[@]}"; do
+        command_exists "$dep" || missing_required+=("$dep")
     done
 
-    if [ ${#missing[@]} -gt 0 ]; then
-        print_warning "Some optional dependencies are missing: ${missing[*]}"
+    for dep in "${optional[@]}"; do
+        command_exists "$dep" || missing_optional+=("$dep")
+    done
+
+    if [ ${#missing_required[@]} -gt 0 ]; then
+        error "Missing required tools: ${missing_required[*]}"
+        exit 1
+    fi
+
+    success "Required tools available: ${required[*]}"
+
+    if [ ${#missing_optional[@]} -gt 0 ]; then
+        warn "Optional tools missing: ${missing_optional[*]}"
+    else
+        success "All optional tools available"
     fi
 }
 
-# Build the project
-build() {
-    print_header "Building $PROJECT_NAME v$VERSION"
-
+ensure_builddir() {
     cd "$PROJECT_DIR"
-
-    # Setup if builddir doesn't exist
-    if [ ! -d "builddir" ]; then
-        echo "Setting up build directory..."
+    if [ ! -d builddir ]; then
+        heading "Configuring Meson"
         meson setup builddir
+    elif [ ! -f builddir/build.ninja ]; then
+        heading "Reconfiguring Meson"
+        meson setup builddir --reconfigure
     fi
-
-    # Compile
-    echo "Compiling..."
-    meson compile -C builddir
-
-    print_success "Build completed successfully"
 }
 
-# Install the project
-install_local() {
-    print_header "Installing $PROJECT_NAME"
-
-    cd "$PROJECT_DIR"
-
-    echo "Installing (requires sudo)..."
-    sudo ninja -C builddir install
-
-    print_success "Installation completed"
+do_build() {
+    ensure_builddir
+    heading "Building $PROJECT_NAME v$VERSION"
+    meson compile -C "$PROJECT_DIR/builddir"
+    success "Build completed"
 }
 
-# Run linting and formatting
-lint() {
-    print_header "Running Code Quality Checks"
+do_install() {
+    ensure_builddir
+    heading "Installing (sudo required)"
+    sudo meson install -C "$PROJECT_DIR/builddir"
+    success "Installation completed"
+}
 
+do_lint() {
+    heading "Running code quality checks"
     cd "$PROJECT_DIR"
-
-    # Install npm dependencies if needed
-    if [ ! -d "node_modules" ]; then
-        echo "Installing npm dependencies..."
+    if [ ! -d node_modules ]; then
+        warn "Installing npm dependencies"
         npm install
     fi
-
-    echo "Running ESLint..."
-    npm run lint || print_warning "Lint warnings found"
-
-    echo "Running Prettier..."
+    npm run lint || warn "ESLint reported issues"
     npm run format
-
-    echo "Checking TypeScript..."
     npx tsc --noEmit
-
-    print_success "Code quality checks completed"
+    success "Linting finished"
 }
 
-# Build Flatpak
-build_flatpak() {
-    print_header "Building Flatpak"
-
-    cd "$PROJECT_DIR"
-
-    if ! command -v flatpak-builder &> /dev/null; then
-        print_error "flatpak-builder not found. Install with: sudo apt install flatpak-builder"
+do_flatpak() {
+    heading "Flatpak build"
+    if ! command_exists flatpak-builder; then
+        error "flatpak-builder missing. Install with: sudo apt install flatpak-builder"
         return 1
     fi
-
-    echo "Building Flatpak package..."
+    cd "$PROJECT_DIR"
     flatpak-builder --user --install --force-clean buildrepo uz.mohirlab.senbrua.json
-
-    print_success "Flatpak build completed"
+    success "Flatpak build finished"
     echo "Run with: flatpak run uz.mohirlab.senbrua"
 }
 
-# Build Snap
-build_snap() {
-    print_header "Building Snap"
-
-    cd "$PROJECT_DIR"
-
-    if ! command -v snapcraft &> /dev/null; then
-        print_error "snapcraft not found. Install with: sudo snap install snapcraft --classic"
+do_snap() {
+    heading "Snap build"
+    if ! command_exists snapcraft; then
+        error "snapcraft missing. Install with: sudo snap install snapcraft --classic"
         return 1
     fi
+    cd "$PROJECT_DIR"
+    snapcraft --use-lxd
+    success "Snap build finished"
+}
 
-    echo "Building Snap package..."
-    echo "Note: This requires LXD. Make sure you're in the 'lxd' group."
-    echo ""
+do_deb() {
+    heading "Debian package build"
+    if ! command_exists dpkg-buildpackage; then
+        error "dpkg-buildpackage not found (install devscripts)"
+        return 1
+    fi
+    cd "$PROJECT_DIR"
+    if command_exists debclean; then
+        debclean >/dev/null 2>&1 || true
+    fi
+    dpkg-buildpackage -us -uc -b
+    success "Debian package built"
+}
 
-    # Use 'snapcraft pack' (new command)
-    snapcraft pack
-
-    print_success "Snap build completed"
-
-    # Find the snap file
-    SNAP_FILE=$(ls -t *.snap 2>/dev/null | head -1)
-    if [ -n "$SNAP_FILE" ]; then
-        echo "Install with: sudo snap install $SNAP_FILE --dangerous"
+do_run() {
+    heading "Running from build tree"
+    cd "$PROJECT_DIR"
+    if [ -x ./tools/dev-run.sh ]; then
+        ./tools/dev-run.sh
+    else
+        ensure_builddir
+        do_build
+        gjs -m builddir/src/uz.mohirlab.senbrua
     fi
 }
 
-# Run the app
-run_app() {
-    print_header "Running $PROJECT_NAME"
-
+do_run_installed() {
+    heading "Running installed application"
     senbrua
 }
 
-# Clean build
-clean() {
-    print_header "Cleaning Build Artifacts"
-
+do_clean() {
+    heading "Cleaning build artefacts"
     cd "$PROJECT_DIR"
-
-    rm -rf builddir
-    rm -rf buildrepo
-    rm -rf .flatpak-builder
-    rm -f *.snap
-
-    print_success "Clean completed"
+    rm -rf builddir buildrepo .flatpak-builder *.snap
+    success "Clean completed"
 }
 
-# Git release
-git_release() {
-    print_header "Creating Git Release"
-
+do_git_release() {
+    heading "Preparing git release"
     cd "$PROJECT_DIR"
-
-    # Check for uncommitted changes
     if ! git diff-index --quiet HEAD --; then
-        echo "You have uncommitted changes."
-        read -p "Commit all changes? (y/n): " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            read -p "Enter commit message [Release v$VERSION]: " commit_msg
-            commit_msg=${commit_msg:-"Release v$VERSION"}
+        warn "Working tree dirty"
+        read -rp "Commit all changes now? [y/N]: " reply
+        if [[ $reply =~ ^[Yy]$ ]]; then
+            read -rp "Commit message [Release v$VERSION]: " message
+            message=${message:-"Release v$VERSION"}
             git add .
-            git commit -m "$commit_msg"
+            git commit -m "$message"
         else
-            print_warning "Skipping commit"
+            warn "Skipping commit"
         fi
     fi
 
-    # Create tag
-    read -p "Create tag v$VERSION? (y/n): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    read -rp "Tag release v$VERSION? [y/N]: " tag_reply
+    if [[ $tag_reply =~ ^[Yy]$ ]]; then
         git tag -a "v$VERSION" -m "Release v$VERSION"
-        print_success "Tag v$VERSION created"
+        success "Created tag v$VERSION"
     fi
 
-    # Push
-    read -p "Push to origin? (y/n): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        git push origin main --tags
-        print_success "Pushed to origin"
+    read -rp "Push to origin? [y/N]: " push_reply
+    if [[ $push_reply =~ ^[Yy]$ ]]; then
+        git push --follow-tags
+        success "Pushed to origin"
     fi
 }
 
-# Show help
 show_help() {
-    echo "$PROJECT_NAME Build Script v$VERSION"
-    echo ""
+    echo "$PROJECT_NAME build helper v$VERSION"
+    echo
     echo "Usage: $0 [command]"
-    echo ""
+    echo
     echo "Commands:"
-    echo "  build       Build the project"
-    echo "  install     Build and install locally"
-    echo "  lint        Run linting and formatting"
-    echo "  flatpak     Build Flatpak package"
-    echo "  snap        Build Snap package"
-    echo "  run         Run the application"
-    echo "  clean       Clean build artifacts"
-    echo "  release     Create git release (commit, tag, push)"
-    echo "  all         Run lint, build, and install"
-    echo "  help        Show this help message"
-    echo ""
-    echo "Interactive mode:"
-    echo "  Run without arguments for interactive menu"
+    echo "  deps            Check for required tools"
+    echo "  build           Compile the project"
+    echo "  install         Build and install system-wide"
+    echo "  lint            Run TypeScript linting/formatting"
+    echo "  flatpak         Build the Flatpak package"
+    echo "  snap            Build the Snap package"
+    echo "  deb             Build Debian packages"
+    echo "  run             Run from build tree (Ctrl+C safe)"
+    echo "  run-installed   Run installed binary"
+    echo "  clean           Remove build artefacts"
+    echo "  release         Commit, tag and optionally push"
+    echo "  all             deps -> lint -> build -> install"
+    echo "  help            Show this message"
+    echo
+    echo "Run with no arguments to enter interactive mode."
 }
 
-# Interactive menu
 interactive_menu() {
-    print_header "$PROJECT_NAME Build Script v$VERSION"
-
-    echo "What would you like to do?"
-    echo ""
-    echo "  1) Build"
-    echo "  2) Build & Install"
-    echo "  3) Run Lint & Format"
-    echo "  4) Build Flatpak"
-    echo "  5) Build Snap"
-    echo "  6) Run Application"
-    echo "  7) Clean Build"
-    echo "  8) Git Release"
-    echo "  9) Full Pipeline (lint → build → install)"
-    echo "  0) Exit"
-    echo ""
-
-    read -p "Enter choice [1-9, 0]: " choice
-
-    case $choice in
-        1) build ;;
-        2) build && install_local ;;
-        3) lint ;;
-        4) build_flatpak ;;
-        5) build_snap ;;
-        6) run_app ;;
-        7) clean ;;
-        8) git_release ;;
-        9) lint && build && install_local ;;
-        0) exit 0 ;;
-        *) print_error "Invalid choice" ;;
-    esac
+    while true; do
+        heading "$PROJECT_NAME build helper v$VERSION"
+        echo "  1) Check dependencies"
+        echo "  2) Build"
+        echo "  3) Build & install"
+        echo "  4) Lint & format"
+        echo "  5) Build Flatpak"
+        echo "  6) Build Snap"
+        echo "  7) Build Debian package"
+        echo "  8) Run (build tree)"
+        echo "  9) Run installed binary"
+        echo " 10) Clean"
+        echo " 11) Git release helper"
+        echo " 12) Full pipeline (deps -> lint -> build -> install)"
+        echo "  0) Exit"
+        echo
+        read -rp "Select option: " choice
+        case $choice in
+            1) check_dependencies ;;
+            2) do_build ;;
+            3) do_build && do_install ;;
+            4) do_lint ;;
+            5) do_flatpak ;;
+            6) do_snap ;;
+            7) do_deb ;;
+            8) do_run ;;
+            9) do_run_installed ;;
+            10) do_clean ;;
+            11) do_git_release ;;
+            12) check_dependencies && do_lint && do_build && do_install ;;
+            0) exit 0 ;;
+            *) warn "Invalid choice" ;;
+        esac
+    done
 }
-
-# Main
-cd "$PROJECT_DIR"
 
 case "${1:-}" in
+    deps)
+        check_dependencies
+        ;;
     build)
-        build
+        do_build
         ;;
     install)
-        build
-        install_local
+        do_build
+        do_install
         ;;
     lint)
-        lint
+        do_lint
         ;;
     flatpak)
-        build_flatpak
+        do_flatpak
         ;;
     snap)
-        build_snap
+        do_snap
+        ;;
+    deb)
+        do_deb
         ;;
     run)
-        run_app
+        do_run
+        ;;
+    run-installed)
+        do_run_installed
         ;;
     clean)
-        clean
+        do_clean
         ;;
     release)
-        git_release
+        do_git_release
         ;;
     all)
         check_dependencies
-        lint
-        build
-        install_local
+        do_lint
+        do_build
+        do_install
         ;;
     help|--help|-h)
         show_help
@@ -313,7 +298,7 @@ case "${1:-}" in
         interactive_menu
         ;;
     *)
-        print_error "Unknown command: $1"
+        error "Unknown command: $1"
         show_help
         exit 1
         ;;

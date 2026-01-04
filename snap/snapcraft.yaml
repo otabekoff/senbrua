@@ -53,7 +53,6 @@ parts:
     meson-parameters:
       - --prefix=/usr/local
       - -Dskip_ts=true
-    meson-version: ">= 0.63"
     build-packages:
       - meson
       - ninja-build
