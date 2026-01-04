@@ -68,9 +68,9 @@ parts:
       - libgjs-dev
       - libgtk-4-dev
       - libadwaita-1-dev
-        - desktop-file-utils
-        - appstream
-        - gjs
+      - desktop-file-utils
+      - appstream
+      - gjs
       - libgstreamer1.0-dev
       - libgstreamer-plugins-bad1.0-dev
       - libgstreamer-plugins-base1.0-dev
