@@ -128,7 +128,7 @@ jobs:
 
   build-appimage:
     name: Build AppImage
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: build-deb
     steps:
       - name: Checkout code
