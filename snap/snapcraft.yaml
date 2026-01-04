@@ -60,10 +60,12 @@ parts:
     meson-parameters:
       - --prefix=/usr/local
       - -Dskip_ts=true
-    build-snaps:
-      - meson
+    override-build: |
+      pip3 install meson
+      craftctl default
     build-packages:
       - ninja-build
+      - python3-pip
       - gettext
       - libgjs-dev
       - libgtk-4-dev
