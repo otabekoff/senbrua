@@ -1,0 +1,14 @@
+uz.mohirlab.senbrua (1.0.0-1) unstable; urgency=medium
+
+  * Initial release
+  * Modern sound recorder for GNOME
+  * Noise reduction support with audiornnoise/rnnoise
+  * Multiple audio format support (OGG, MP3, M4A, FLAC, WAV, OPUS)
+  * Real-time waveform visualization
+  * Recording management with rename and delete functionality
+  * Theme mode switching (System, Light, Dark)
+  * Keyboard shortcuts dialog
+  * Multi-language support including Uzbek (Latin and Cyrillic)
+  * Based on Vocalis by Christopher Davis
+
+ -- Otabek Sadiridinov <sadiridinovotabek@gmail.com>  Sat, 04 Jan 2026 00:00:00 +0000

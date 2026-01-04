@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="data/icons/hicolor/scalable/apps/io.github.senbrua.svg" alt="Senbrua" width="128" height="128">
+  <img src="data/icons/hicolor/scalable/apps/uz.mohirlab.senbrua.svg" alt="Senbrua" width="128" height="128">
 </p>
 
 <h1 align="center">Senbrua</h1>
@@ -9,11 +9,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/otabekoff/senbrua/releases">
-    <img src="https://img.shields.io/github/v/release/otabekoff/senbrua" alt="Release">
+  <a href="https://github.com/AkromDev/senbrua/releases">
+    <img src="https://img.shields.io/github/v/release/AkromDev/senbrua" alt="Release">
   </a>
-  <a href="https://github.com/otabekoff/senbrua/blob/main/COPYING">
-    <img src="https://img.shields.io/github/license/otabekoff/senbrua" alt="License">
+  <a href="https://github.com/AkromDev/senbrua/blob/main/COPYING">
+    <img src="https://img.shields.io/github/license/AkromDev/senbrua" alt="License">
   </a>
 </p>
 
@@ -43,7 +43,7 @@ Senbrua – An elegant Linux GNOME desktop voice recorder with advanced noise ca
 ### Flatpak (Recommended)
 
 ```bash
-flatpak install flathub io.github.senbrua
+flatpak install flathub uz.mohirlab.senbrua
 ```
 
 ### Building from Source
@@ -66,7 +66,7 @@ flatpak install flathub io.github.senbrua
 
 ```bash
 # Clone the repository
-git clone https://github.com/otabekoff/senbrua.git
+git clone https://github.com/AkromDev/senbrua.git
 cd senbrua
 
 # Configure the build
@@ -109,29 +109,29 @@ snap install senbrua
 
 ### Keyboard Shortcuts
 
-| Action | Shortcut |
-|--------|----------|
+| Action          | Shortcut |
+| --------------- | -------- |
 | Start Recording | `Ctrl+R` |
-| Pause/Resume | `Space` |
-| Stop Recording | `S` |
-| Delete | `Delete` |
-| Rename | `F2` |
-| Export | `Ctrl+S` |
-| Seek Backward | `B` |
-| Seek Forward | `N` |
-| Quit | `Ctrl+Q` |
-| Show Shortcuts | `Ctrl+?` |
+| Pause/Resume    | `Space`  |
+| Stop Recording  | `S`      |
+| Delete          | `Delete` |
+| Rename          | `F2`     |
+| Export          | `Ctrl+S` |
+| Seek Backward   | `B`      |
+| Seek Forward    | `N`      |
+| Quit            | `Ctrl+Q` |
+| Show Shortcuts  | `Ctrl+?` |
 
 ## Audio Formats
 
 Senbrua supports the following audio formats:
 
-| Format | Extension | Description |
-|--------|-----------|-------------|
-| Opus | `.opus` | High-quality, low-latency codec |
-| Vorbis | `.ogg` | Open-source lossy codec |
-| FLAC | `.flac` | Lossless audio codec |
-| MP3 | `.mp3` | Universal compatibility |
+| Format | Extension | Description                     |
+| ------ | --------- | ------------------------------- |
+| Opus   | `.opus`   | High-quality, low-latency codec |
+| Vorbis | `.ogg`    | Open-source lossy codec         |
+| FLAC   | `.flac`   | Lossless audio codec            |
+| MP3    | `.mp3`    | Universal compatibility         |
 
 ## Contributing
 

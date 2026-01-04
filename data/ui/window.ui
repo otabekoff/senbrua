@@ -19,7 +19,7 @@
             <property name="child">
               <object class="GtkBox" id="contentBox">
                 <property name="orientation">horizontal</property>
-                <property name="spacing">12</property>
+                <property name="spacing">0</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin_start">12</property>
@@ -67,16 +67,18 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkSeparator">
-                    <property name="orientation">vertical</property>
-                  </object>
-                </child>
-                <child>
                   <object class="GtkBox" id="sidebar">
                     <property name="orientation">vertical</property>
                     <property name="spacing">12</property>
-                    <property name="width_request">240</property>
+                    <property name="width_request">260</property>
                     <property name="hexpand">False</property>
+                    <property name="margin_start">12</property>
+                    <property name="margin_end">12</property>
+                    <property name="margin_top">0</property>
+                    <property name="margin_bottom">0</property>
+                    <style>
+                      <class name="sidebar" />
+                    </style>
                     <child>
                       <object class="GtkButton" id="recordButton">
                         <property name="receives_default">False</property>
@@ -96,72 +98,155 @@
                       <object class="GtkSeparator" />
                     </child>
                     <child>
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">16</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-                            <property name="spacing">6</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="label" translatable="yes">Preferred Format</property>
-                                <property name="xalign">0</property>
-                                <style>
-                                  <class name="heading" />
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkDropDown" id="formatDropdown">
-                                <property name="hexpand">True</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-                            <property name="spacing">6</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="label" translatable="yes">Audio Channel</property>
-                                <property name="xalign">0</property>
-                                <style>
-                                  <class name="heading" />
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkDropDown" id="channelDropdown">
-                                <property name="hexpand">True</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">horizontal</property>
-                            <property name="hexpand">True</property>
-                            <property name="spacing">6</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="label" translatable="yes">Noise Reduction</property>
-                                <property name="xalign">0</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkSwitch" id="noiseSwitch">
-                                <property name="halign">end</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
+                      <object class="GtkScrolledWindow">
                         <property name="vexpand">True</property>
+                        <property name="hscrollbar_policy">never</property>
+                        <property name="child">
+                          <object class="GtkBox">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">16</property>
+                            <!-- Theme Mode -->
+                            <child>
+                              <object class="GtkBox">
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Appearance</property>
+                                    <property name="xalign">0</property>
+                                    <style>
+                                      <class name="heading" />
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">4</property>
+                                    <child>
+                                      <object class="GtkCheckButton" id="themeSystemRadio">
+                                        <property name="label" translatable="yes">System</property>
+                                        <property name="active">True</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="themeLightRadio">
+                                        <property name="label" translatable="yes">Light</property>
+                                        <property name="group">themeSystemRadio</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="themeDarkRadio">
+                                        <property name="label" translatable="yes">Dark</property>
+                                        <property name="group">themeSystemRadio</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <!-- Preferred Format -->
+                            <child>
+                              <object class="GtkBox">
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Preferred Format</property>
+                                    <property name="xalign">0</property>
+                                    <style>
+                                      <class name="heading" />
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">4</property>
+                                    <child>
+                                      <object class="GtkCheckButton" id="formatVorbisRadio">
+                                        <property name="label" translatable="yes">Vorbis</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="formatOpusRadio">
+                                        <property name="label" translatable="yes">Opus</property>
+                                        <property name="group">formatVorbisRadio</property>
+                                        <property name="active">True</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="formatFlacRadio">
+                                        <property name="label" translatable="yes">FLAC</property>
+                                        <property name="group">formatVorbisRadio</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="formatMp3Radio">
+                                        <property name="label" translatable="yes">MP3</property>
+                                        <property name="group">formatVorbisRadio</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <!-- Audio Channel -->
+                            <child>
+                              <object class="GtkBox">
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Audio Channel</property>
+                                    <property name="xalign">0</property>
+                                    <style>
+                                      <class name="heading" />
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">4</property>
+                                    <child>
+                                      <object class="GtkCheckButton" id="channelStereoRadio">
+                                        <property name="label" translatable="yes">Stereo</property>
+                                        <property name="active">True</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="channelMonoRadio">
+                                        <property name="label" translatable="yes">Mono</property>
+                                        <property name="group">channelStereoRadio</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <!-- Noise Reduction -->
+                            <child>
+                              <object class="GtkBox">
+                                <property name="orientation">horizontal</property>
+                                <property name="hexpand">True</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Noise Reduction</property>
+                                    <property name="xalign">0</property>
+                                    <property name="hexpand">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSwitch" id="noiseSwitch">
+                                    <property name="halign">end</property>
+                                    <property name="valign">center</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
                       </object>
                     </child>
                     <child>

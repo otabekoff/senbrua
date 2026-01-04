@@ -9,7 +9,7 @@ on:
       - "types/**"
       - "meson.build"
       - "meson_options.txt"
-      - "io.github.senbrua.json"
+      - "uz.mohirlab.senbrua.json"
       - ".github/workflows/flatpak.yml"
   pull_request:
     branches: [main]
@@ -19,7 +19,7 @@ on:
       - "types/**"
       - "meson.build"
       - "meson_options.txt"
-      - "io.github.senbrua.json"
+      - "uz.mohirlab.senbrua.json"
 
 jobs:
   flatpak:
@@ -32,7 +32,7 @@ jobs:
       - name: Setup Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          manifest-path: io.github.senbrua.json
+          manifest-path: uz.mohirlab.senbrua.json
           cache-key: flatpak-builder-${{ runner.os }}
           bundle: senbrua.flatpak
           branch: main

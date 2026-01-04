@@ -1,0 +1,142 @@
+# Uzbek (Cyrillic) translation for Senbrua.
+# Copyright (C) 2026 Otabek Sadiridinov
+# This file is distributed under the same license as the Senbrua package.
+# Otabek Sadiridinov <sadiridinovotabek@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: senbrua 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/otabekoff/senbrua/issues\n"
+"POT-Creation-Date: 2026-01-04 12:00+0000\n"
+"PO-Revision-Date: 2026-01-04 12:00+0000\n"
+"Last-Translator: Otabek Sadiridinov <sadiridinovotabek@gmail.com>\n"
+"Language-Team: Uzbek <uz@li.org>\n"
+"Language: uz@cyrillic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Senbrua"
+msgstr "Сенбруа"
+
+msgid "Record sound via the microphone and play it back"
+msgstr "Микрофон орқали овоз ёзиб олинг ва ижро этинг"
+
+msgid "Add Recordings"
+msgstr "Ёзувлар қўшиш"
+
+msgid "Use the <b>Record</b> button to make sound recordings"
+msgstr "Овоз ёзиб олиш учун <b>Ёзиш</b> тугмасидан фойдаланинг"
+
+msgid "Record"
+msgstr "Ёзиш"
+
+msgid "Appearance"
+msgstr "Кўриниш"
+
+msgid "System"
+msgstr "Тизим"
+
+msgid "Light"
+msgstr "Ёруғ"
+
+msgid "Dark"
+msgstr "Қоронғу"
+
+msgid "Preferred Format"
+msgstr "Афзал формат"
+
+msgid "Vorbis"
+msgstr "Vorbis"
+
+msgid "Opus"
+msgstr "Opus"
+
+msgid "FLAC"
+msgstr "FLAC"
+
+msgid "MP3"
+msgstr "MP3"
+
+msgid "Audio Channel"
+msgstr "Аудио канал"
+
+msgid "Stereo"
+msgstr "Стерео"
+
+msgid "Mono"
+msgstr "Моно"
+
+msgid "Noise Reduction"
+msgstr "Шовқинни камайтириш"
+
+msgid "Keyboard Shortcuts"
+msgstr "Клавиатура ёрлиқлари"
+
+msgid "About Senbrua"
+msgstr "Сенбруа ҳақида"
+
+msgid "translator-credits"
+msgstr "Отабек Садиридинов <sadiridinovotabek@gmail.com>"
+
+msgid "A modern remake of Vocalis, the elegant GNOME sound recorder with advanced noise cancellation."
+msgstr "Vocalis'нинг замонавий версияси - илғор шовқинни йўқотиш билан нафис GNOME овоз ёзувчиси."
+
+msgid "Original Authors"
+msgstr "Асл муаллифлар"
+
+msgid "Based On"
+msgstr "Асосланган"
+
+msgid "Recording deleted"
+msgstr "Ёзув ўчирилди"
+
+#, c-format
+msgid "\"%s\" deleted"
+msgstr "\"%s\" ўчирилди"
+
+msgid "Undo"
+msgstr "Бекор қилиш"
+
+msgid "Recording"
+msgstr "Ёзиш"
+
+msgid "Start recording"
+msgstr "Ёзишни бошлаш"
+
+msgid "Pause/Resume"
+msgstr "Пауза/Давом"
+
+msgid "Cancel recording"
+msgstr "Ёзишни бекор қилиш"
+
+msgid "Stop recording"
+msgstr "Ёзишни тўхтатиш"
+
+msgid "Playback"
+msgstr "Ижро"
+
+msgid "Play/Pause"
+msgstr "Ижро/Пауза"
+
+msgid "Seek backward"
+msgstr "Орқага қайтариш"
+
+msgid "Seek forward"
+msgstr "Олдинга ўтиш"
+
+msgid "General"
+msgstr "Умумий"
+
+msgid "Rename recording"
+msgstr "Ёзувни қайта номлаш"
+
+msgid "Delete recording"
+msgstr "Ёзувни ўчириш"
+
+msgid "Export recording"
+msgstr "Ёзувни экспорт қилиш"
+
+msgid "Quit"
+msgstr "Чиқиш"

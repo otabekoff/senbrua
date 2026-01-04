@@ -1,5 +1,5 @@
 // Senbrua - A simple, modern sound recorder for GNOME
-// Copyright (C) 2024 Senbrua Contributors
+// Copyright (C) 2026 Otabek Sadiridinov
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import Adw from "gi://Adw";
@@ -29,9 +29,22 @@ export class Window extends Adw.ApplicationWindow {
     private _column!: Adw.Clamp;
     private _toastOverlay!: Adw.ToastOverlay;
     private _toolbarView!: Adw.ToolbarView;
-    private _formatDropdown!: Gtk.DropDown;
-    private _channelDropdown!: Gtk.DropDown;
     private _noiseSwitch!: Gtk.Switch;
+
+    // Theme radio buttons
+    private _themeSystemRadio!: Gtk.CheckButton;
+    private _themeLightRadio!: Gtk.CheckButton;
+    private _themeDarkRadio!: Gtk.CheckButton;
+
+    // Format radio buttons
+    private _formatVorbisRadio!: Gtk.CheckButton;
+    private _formatOpusRadio!: Gtk.CheckButton;
+    private _formatFlacRadio!: Gtk.CheckButton;
+    private _formatMp3Radio!: Gtk.CheckButton;
+
+    // Channel radio buttons
+    private _channelStereoRadio!: Gtk.CheckButton;
+    private _channelMonoRadio!: Gtk.CheckButton;
 
     private recorder: Recorder;
     private recorderWidget: RecorderWidget;
@@ -39,6 +52,7 @@ export class Window extends Adw.ApplicationWindow {
     private recordingList: RecordingList;
     private itemsSignalId: number;
     private recordingListWidget: RecordingsListWidget;
+    private colorSchemeHandler?: number;
     private formatSettingsHandler?: number;
     private channelSettingsHandler?: number;
 
@@ -52,16 +66,23 @@ export class Window extends Adw.ApplicationWindow {
     static {
         GObject.registerClass(
             {
-                Template: "resource:///io/github/senbrua/ui/window.ui",
+                Template: "resource:///uz/mohirlab/senbrua/ui/window.ui",
                 InternalChildren: [
                     "mainStack",
                     "emptyPage",
                     "column",
                     "toastOverlay",
                     "toolbarView",
-                    "formatDropdown",
-                    "channelDropdown",
                     "noiseSwitch",
+                    "themeSystemRadio",
+                    "themeLightRadio",
+                    "themeDarkRadio",
+                    "formatVorbisRadio",
+                    "formatOpusRadio",
+                    "formatFlacRadio",
+                    "formatMp3Radio",
+                    "channelStereoRadio",
+                    "channelMonoRadio",
                 ],
             },
             this,
@@ -78,8 +99,9 @@ export class Window extends Adw.ApplicationWindow {
         this.recorderWidget = new RecorderWidget(this.recorder);
         this._mainStack.add_named(this.recorderWidget, "recorder");
 
-        const dispatcher =
-            GstPlayer.PlayerGMainContextSignalDispatcher.new(null);
+        const dispatcher = GstPlayer.PlayerGMainContextSignalDispatcher.new(
+            null,
+        );
         this.player = GstPlayer.Player.new(null, dispatcher);
         this.player.connect("end-of-stream", () => this.player.stop());
 
@@ -117,62 +139,14 @@ export class Window extends Adw.ApplicationWindow {
         this.undoAction = new Gio.SimpleAction({ name: "undo" });
         this.add_action(this.undoAction);
 
-        const formatStrings = Gtk.StringList.new([
-            _("Vorbis"),
-            _("Opus"),
-            _("FLAC"),
-            _("MP3"),
-        ]);
-        this._formatDropdown.set_model(formatStrings);
-        this._formatDropdown.set_selected(Settings.get_enum("audio-profile"));
+        // Setup theme radio buttons
+        this.setupThemeRadios();
 
-        let updatingFormat = false;
-        this._formatDropdown.connect("notify::selected", () => {
-            if (updatingFormat) return;
-            updatingFormat = true;
-            const selected = this._formatDropdown.get_selected();
-            if (selected >= 0) {
-                Settings.set_enum("audio-profile", selected);
-            }
-            updatingFormat = false;
-        });
+        // Setup format radio buttons
+        this.setupFormatRadios();
 
-        this.formatSettingsHandler = Settings.connect(
-            "changed::audio-profile",
-            () => {
-                updatingFormat = true;
-                this._formatDropdown.set_selected(
-                    Settings.get_enum("audio-profile"),
-                );
-                updatingFormat = false;
-            },
-        );
-
-        const channelStrings = Gtk.StringList.new([_("Stereo"), _("Mono")]);
-        this._channelDropdown.set_model(channelStrings);
-        this._channelDropdown.set_selected(Settings.get_enum("audio-channel"));
-
-        let updatingChannel = false;
-        this._channelDropdown.connect("notify::selected", () => {
-            if (updatingChannel) return;
-            updatingChannel = true;
-            const selected = this._channelDropdown.get_selected();
-            if (selected >= 0) {
-                Settings.set_enum("audio-channel", selected);
-            }
-            updatingChannel = false;
-        });
-
-        this.channelSettingsHandler = Settings.connect(
-            "changed::audio-channel",
-            () => {
-                updatingChannel = true;
-                this._channelDropdown.set_selected(
-                    Settings.get_enum("audio-channel"),
-                );
-                updatingChannel = false;
-            },
-        );
+        // Setup channel radio buttons
+        this.setupChannelRadios();
 
         Settings.bind(
             "noise-reduction-enabled",
@@ -182,6 +156,10 @@ export class Window extends Adw.ApplicationWindow {
         );
 
         this.connect("destroy", () => {
+            if (this.colorSchemeHandler) {
+                Settings.disconnect(this.colorSchemeHandler);
+                this.colorSchemeHandler = undefined;
+            }
             if (this.formatSettingsHandler) {
                 Settings.disconnect(this.formatSettingsHandler);
                 this.formatSettingsHandler = undefined;
@@ -207,6 +185,152 @@ export class Window extends Adw.ApplicationWindow {
         );
         this.insert_action_group("recorder", this.recorderWidget.actionsGroup);
         this._emptyPage.icon_name = `${pkg.name}-symbolic`;
+    }
+
+    private setupThemeRadios(): void {
+        const styleManager = Adw.StyleManager.get_default();
+
+        // Apply saved color scheme on startup
+        const savedScheme = Settings.get_enum("color-scheme");
+        this.applyColorScheme(savedScheme);
+
+        // Set initial radio state
+        switch (savedScheme) {
+            case 0:
+                this._themeSystemRadio.set_active(true);
+                break;
+            case 1:
+                this._themeLightRadio.set_active(true);
+                break;
+            case 2:
+                this._themeDarkRadio.set_active(true);
+                break;
+        }
+
+        // Connect radio button signals
+        this._themeSystemRadio.connect("toggled", () => {
+            if (this._themeSystemRadio.get_active()) {
+                Settings.set_enum("color-scheme", 0);
+                styleManager.set_color_scheme(Adw.ColorScheme.DEFAULT);
+            }
+        });
+
+        this._themeLightRadio.connect("toggled", () => {
+            if (this._themeLightRadio.get_active()) {
+                Settings.set_enum("color-scheme", 1);
+                styleManager.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT);
+            }
+        });
+
+        this._themeDarkRadio.connect("toggled", () => {
+            if (this._themeDarkRadio.get_active()) {
+                Settings.set_enum("color-scheme", 2);
+                styleManager.set_color_scheme(Adw.ColorScheme.FORCE_DARK);
+            }
+        });
+
+        // Listen for external changes
+        this.colorSchemeHandler = Settings.connect(
+            "changed::color-scheme",
+            () => {
+                const scheme = Settings.get_enum("color-scheme");
+                this.applyColorScheme(scheme);
+                switch (scheme) {
+                    case 0:
+                        this._themeSystemRadio.set_active(true);
+                        break;
+                    case 1:
+                        this._themeLightRadio.set_active(true);
+                        break;
+                    case 2:
+                        this._themeDarkRadio.set_active(true);
+                        break;
+                }
+            },
+        );
+    }
+
+    private applyColorScheme(scheme: number): void {
+        const styleManager = Adw.StyleManager.get_default();
+        switch (scheme) {
+            case 0:
+                styleManager.set_color_scheme(Adw.ColorScheme.DEFAULT);
+                break;
+            case 1:
+                styleManager.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT);
+                break;
+            case 2:
+                styleManager.set_color_scheme(Adw.ColorScheme.FORCE_DARK);
+                break;
+        }
+    }
+
+    private setupFormatRadios(): void {
+        const formatRadios = [
+            this._formatVorbisRadio,
+            this._formatOpusRadio,
+            this._formatFlacRadio,
+            this._formatMp3Radio,
+        ];
+
+        // Set initial state
+        const savedFormat = Settings.get_enum("audio-profile");
+        if (savedFormat >= 0 && savedFormat < formatRadios.length) {
+            formatRadios[savedFormat].set_active(true);
+        }
+
+        // Connect signals
+        formatRadios.forEach((radio, index) => {
+            radio.connect("toggled", () => {
+                if (radio.get_active()) {
+                    Settings.set_enum("audio-profile", index);
+                }
+            });
+        });
+
+        // Listen for external changes
+        this.formatSettingsHandler = Settings.connect(
+            "changed::audio-profile",
+            () => {
+                const format = Settings.get_enum("audio-profile");
+                if (format >= 0 && format < formatRadios.length) {
+                    formatRadios[format].set_active(true);
+                }
+            },
+        );
+    }
+
+    private setupChannelRadios(): void {
+        const channelRadios = [
+            this._channelStereoRadio,
+            this._channelMonoRadio,
+        ];
+
+        // Set initial state
+        const savedChannel = Settings.get_enum("audio-channel");
+        if (savedChannel >= 0 && savedChannel < channelRadios.length) {
+            channelRadios[savedChannel].set_active(true);
+        }
+
+        // Connect signals
+        channelRadios.forEach((radio, index) => {
+            radio.connect("toggled", () => {
+                if (radio.get_active()) {
+                    Settings.set_enum("audio-channel", index);
+                }
+            });
+        });
+
+        // Listen for external changes
+        this.channelSettingsHandler = Settings.connect(
+            "changed::audio-channel",
+            () => {
+                const channel = Settings.get_enum("audio-channel");
+                if (channel >= 0 && channel < channelRadios.length) {
+                    channelRadios[channel].set_active(true);
+                }
+            },
+        );
     }
 
     public vfunc_close_request(): boolean {

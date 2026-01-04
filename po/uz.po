@@ -1,0 +1,142 @@
+# Uzbek (Latin) translation for Senbrua.
+# Copyright (C) 2026 Otabek Sadiridinov
+# This file is distributed under the same license as the Senbrua package.
+# Otabek Sadiridinov <sadiridinovotabek@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: senbrua 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/otabekoff/senbrua/issues\n"
+"POT-Creation-Date: 2026-01-04 12:00+0000\n"
+"PO-Revision-Date: 2026-01-04 12:00+0000\n"
+"Last-Translator: Otabek Sadiridinov <sadiridinovotabek@gmail.com>\n"
+"Language-Team: Uzbek <uz@li.org>\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Senbrua"
+msgstr "Senbrua"
+
+msgid "Record sound via the microphone and play it back"
+msgstr "Mikrofon orqali ovoz yozib oling va ijro eting"
+
+msgid "Add Recordings"
+msgstr "Yozuvlar qo'shish"
+
+msgid "Use the <b>Record</b> button to make sound recordings"
+msgstr "Ovoz yozib olish uchun <b>Yozish</b> tugmasidan foydalaning"
+
+msgid "Record"
+msgstr "Yozish"
+
+msgid "Appearance"
+msgstr "Ko'rinish"
+
+msgid "System"
+msgstr "Tizim"
+
+msgid "Light"
+msgstr "Yorug'"
+
+msgid "Dark"
+msgstr "Qorong'u"
+
+msgid "Preferred Format"
+msgstr "Afzal format"
+
+msgid "Vorbis"
+msgstr "Vorbis"
+
+msgid "Opus"
+msgstr "Opus"
+
+msgid "FLAC"
+msgstr "FLAC"
+
+msgid "MP3"
+msgstr "MP3"
+
+msgid "Audio Channel"
+msgstr "Audio kanal"
+
+msgid "Stereo"
+msgstr "Stereo"
+
+msgid "Mono"
+msgstr "Mono"
+
+msgid "Noise Reduction"
+msgstr "Shovqinni kamaytirish"
+
+msgid "Keyboard Shortcuts"
+msgstr "Klaviatura yorliqlari"
+
+msgid "About Senbrua"
+msgstr "Senbrua haqida"
+
+msgid "translator-credits"
+msgstr "Otabek Sadiridinov <sadiridinovotabek@gmail.com>"
+
+msgid "A modern remake of Vocalis, the elegant GNOME sound recorder with advanced noise cancellation."
+msgstr "Vocalis'ning zamonaviy versiyasi - ilg'or shovqinni yo'qotish bilan nafis GNOME ovoz yozuvchisi."
+
+msgid "Original Authors"
+msgstr "Asl mualliflar"
+
+msgid "Based On"
+msgstr "Asoslangan"
+
+msgid "Recording deleted"
+msgstr "Yozuv o'chirildi"
+
+#, c-format
+msgid "\"%s\" deleted"
+msgstr "\"%s\" o'chirildi"
+
+msgid "Undo"
+msgstr "Bekor qilish"
+
+msgid "Recording"
+msgstr "Yozish"
+
+msgid "Start recording"
+msgstr "Yozishni boshlash"
+
+msgid "Pause/Resume"
+msgstr "Pauza/Davom"
+
+msgid "Cancel recording"
+msgstr "Yozishni bekor qilish"
+
+msgid "Stop recording"
+msgstr "Yozishni to'xtatish"
+
+msgid "Playback"
+msgstr "Ijro"
+
+msgid "Play/Pause"
+msgstr "Ijro/Pauza"
+
+msgid "Seek backward"
+msgstr "Orqaga qaytarish"
+
+msgid "Seek forward"
+msgstr "Oldinga o'tish"
+
+msgid "General"
+msgstr "Umumiy"
+
+msgid "Rename recording"
+msgstr "Yozuvni qayta nomlash"
+
+msgid "Delete recording"
+msgstr "Yozuvni o'chirish"
+
+msgid "Export recording"
+msgstr "Yozuvni eksport qilish"
+
+msgid "Quit"
+msgstr "Chiqish"

@@ -2,8 +2,8 @@ name: senbrua
 version: "1.0.0"
 summary: A simple, modern sound recorder for GNOME
 description: |
-  Senbrua is a modern remake of Vocalis - a simple and elegant sound recorder 
-  application for the GNOME desktop. It allows you to record audio using your 
+  Senbrua is a modern remake of Vocalis - a simple and elegant sound recorder
+  application for the GNOME desktop. It allows you to record audio using your
   microphone and play it back with a beautiful waveform visualization.
 
   Features:
@@ -26,7 +26,7 @@ slots:
   senbrua:
     interface: dbus
     bus: session
-    name: io.github.senbrua
+    name: uz.mohirlab.senbrua
 
 apps:
   senbrua:
@@ -37,8 +37,8 @@ apps:
       - audio-playback
       - home
       - removable-media
-    desktop: usr/local/share/applications/io.github.senbrua.desktop
-    common-id: io.github.senbrua
+    desktop: usr/local/share/applications/uz.mohirlab.senbrua.desktop
+    common-id: uz.mohirlab.senbrua
 
 parts:
   senbrua:
@@ -81,4 +81,4 @@ parts:
       npm install -g typescript
       craftctl default
     organize:
-      usr/local/share/io.github.senbrua: usr/share/io.github.senbrua
+      usr/local/share/uz.mohirlab.senbrua: usr/share/uz.mohirlab.senbrua

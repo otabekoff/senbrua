@@ -1,0 +1,40 @@
+Source: uz.mohirlab.senbrua
+Section: sound
+Priority: optional
+Maintainer: Otabek Sadiridinov <sadiridinovotabek@gmail.com>
+Homepage: https://github.com/otabekoff/senbrua
+Vcs-Git: https://github.com/otabekoff/senbrua.git
+Vcs-Browser: https://github.com/otabekoff/senbrua
+Build-Depends: debhelper-compat (= 13),
+               meson (>= 0.63.0),
+               ninja-build,
+               pkg-config,
+               libgtk-4-dev,
+               libadwaita-1-dev,
+               libgstreamer1.0-dev,
+               libgstreamer-plugins-base1.0-dev,
+               gstreamer1.0-plugins-base,
+               gstreamer1.0-plugins-good,
+               gstreamer1.0-pulseaudio,
+               libpulse-dev,
+               node-typescript,
+               npm,
+               gettext
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: uz.mohirlab.senbrua
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libgtk-4-1 (>= 4.0),
+         libadwaita-1-0,
+         libgstreamer1.0-0,
+         libgstreamer-plugins-base1.0-0,
+         gstreamer1.0-plugins-base,
+         gstreamer1.0-plugins-good,
+         gstreamer1.0-pulseaudio
+Description: Modern sound recorder for GNOME
+ A modern remake of Vocalis, providing simple audio recording for GNOME.
+ Features include noise reduction, multiple audio formats, and real-time waveform visualization.
+ Created as an improved version of Vocalis with modern design.

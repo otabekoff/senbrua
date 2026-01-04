@@ -4,21 +4,20 @@ This document lists all the assets required to publish Senbrua to Flathub and th
 
 ## Required Assets Summary
 
-| Asset | Dimensions | Format | Required By |
-|-------|------------|--------|-------------|
-| App Icon | 128×128 | SVG | Both |
-| Symbolic Icon | 16×16 | SVG | Both |
-| Screenshot 1 (Light) | 1920×1080 | PNG | Both |
-| Screenshot 2 (Dark) | 1920×1080 | PNG | Both |
-| Screenshot 3 (Recording) | 1920×1080 | PNG | Recommended |
-| Banner/Hero | 1248×702 | PN| Banner/Hero | 1248×702 | PNG | Flathub |
-G | Flathub |
+| Asset                    | Dimensions | Format | Required By |
+| ------------------------ | ---------- | ------ | ----------- |
+| App Icon                 | 128×128    | SVG    | Both        |
+| Symbolic Icon            | 16×16      | SVG    | Both        |
+| Screenshot 1 (Light)     | 1920×1080  | PNG    | Both        |
+| Screenshot 2 (Dark)      | 1920×1080  | PNG    | Both        |
+| Screenshot 3 (Recording) | 1920×1080  | PNG    | Recommended |
+| Banner/Hero              | 1248×702   | PNG    | Flathub     |
 
 ---
 
 ## 1. App Icon (Already exists)
 
-**Location:** `data/icons/hicolor/scalable/apps/io.github.senbrua.svg`
+**Location:** `data/icons/hicolor/scalable/apps/uz.mohirlab.senbrua.svg`
 
 **Requirements:**
 - Format: SVG (scalable vector graphics)
@@ -30,14 +29,14 @@ G | Flathub |
 
 **Verification:**
 ```bash
-ls -la data/icons/hicolor/scalable/apps/io.github.senbrua.svg
+ls -la data/icons/hicolor/scalable/apps/uz.mohirlab.senbrua.svg
 ```
 
 ---
 
 ## 2. Symbolic Icon (Already exists)
 
-**Location:** `data/icons/hicolor/symbolic/apps/io.github.senbrua-symbolic.svg`
+**Location:** `data/icons/hicolor/symbolic/apps/uz.mohirlab.senbrua-symbolic.svg`
 
 **Requirements:**
 - Format: SVG
@@ -47,7 +46,7 @@ ls -la data/icons/hicolor/scalable/apps/io.github.senbrua.svg
 
 **Verification:**
 ```bash
-ls -la data/icons/hicolor/symbolic/apps/io.github.senbrua-symbolic.svg
+ls -la data/icons/hicolor/symbolic/apps/uz.mohirlab.senbrua-symbolic.svg
 ```
 
 ---
@@ -84,7 +83,7 @@ flameshot gui
 ```
 
 **Naming in AppStream:**
-Screenshots must be referenced in `data/io.github.senbrua.metainfo.xml.in.in`:
+Screenshots must be referenced in `data/uz.mohirlab.senbrua.metainfo.xml.in.in`:
 
 ```xml
 <screenshots>
@@ -116,10 +115,10 @@ Screenshots must be referenced in `data/io.github.senbrua.metainfo.xml.in.in`:
 
 ## 5. AppStream Metadata
 
-**Location:** `data/io.github.senbrua.metainfo.xml.in.in`
+**Location:** `data/uz.mohirlab.senbrua.metainfo.xml.in.in`
 
 **Required Fields:**
-- `<id>` - App ID (io.github.senbrua)
+- `<id>` - App ID (uz.mohirlab.senbrua)
 - `<name>` - App name (Senbrua)
 - `<summary>` - One-line description
 - `<description>` - Detailed description
@@ -132,14 +131,14 @@ Screenshots must be referenced in `data/io.github.senbrua.metainfo.xml.in.in`:
 
 **Validate AppStream:**
 ```bash
-appstreamcli validate data/io.github.senbrua.metainfo.xml.in.in
+appstreamcli validate data/uz.mohirlab.senbrua.metainfo.xml.in.in
 ```
 
 ---
 
 ## 6. Desktop Entry
 
-**Location:** `data/io.github.senbrua.desktop.in.in`
+**Location:** `data/uz.mohirlab.senbrua.desktop.in.in`
 
 **Required Fields:**
 - `Name` - App name
@@ -150,7 +149,7 @@ appstreamcli validate data/io.github.senbrua.metainfo.xml.in.in
 
 **Validate Desktop Entry:**
 ```bash
-desktop-file-validate builddir/data/io.github.senbrua.desktop
+desktop-file-validate builddir/data/uz.mohirlab.senbrua.desktop
 ```
 
 ---
@@ -158,7 +157,7 @@ desktop-file-validate builddir/data/io.github.senbrua.desktop
 ## Flathub Submission Checklist
 
 1. [ ] Create a GitHub release with a tag (e.g., `v1.0.0`)
-2. [ ] Ensure `io.github.senbrua.json` manifest is correct
+2. [ ] Ensure `uz.mohirlab.senbrua.json` manifest is correct
 3. [ ] Fork https://github.com/flathub/flathub
 4. [ ] Create a new branch with your app ID
 5. [ ] Add your manifest file
@@ -215,15 +214,15 @@ data/
 │   └── hicolor/
 │       ├── scalable/
 │       │   └── apps/
-│       │       └── io.github.senbrua.svg       ✅ (exists)
+│       │       └── uz.mohirlab.senbrua.svg       ✅ (exists)
 │       └── symbolic/
 │           └── apps/
-│               └── io.github.senbrua-symbolic.svg  ✅ (exists)
+│               └── uz.mohirlab.senbrua-symbolic.svg  ✅ (exists)
 ├── screenshots/
 │   ├── screenshot-01-main.png                  ❌ (create)
 │   ├── screenshot-02-dark.png                  ❌ (create)
 │   ├── screenshot-03-recording.png             ❌ (create)
 │   └── banner.png                              ❌ (create)
-├── io.github.senbrua.desktop.in.in             ✅ (exists)
-└── io.github.senbrua.metainfo.xml.in.in        ✅ (exists, needs screenshot URLs)
+├── uz.mohirlab.senbrua.desktop.in.in             ✅ (exists)
+└── uz.mohirlab.senbrua.metainfo.xml.in.in        ✅ (exists, needs screenshot URLs)
 ```

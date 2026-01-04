@@ -1,5 +1,5 @@
 // Senbrua - A simple, modern sound recorder for GNOME
-// Copyright (C) 2024 Senbrua Contributors
+// Copyright (C) 2026 Otabek Sadiridinov
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import Adw from "gi://Adw";
@@ -31,7 +31,7 @@ export class Application extends Adw.Application {
     constructor() {
         super({
             application_id: pkg.name,
-            resource_base_path: "/io/github/senbrua/",
+            resource_base_path: "/uz/mohirlab/senbrua/",
         });
 
         GLib.set_application_name(_("Senbrua"));
@@ -169,17 +169,33 @@ export class Application extends Adw.Application {
                 "Garrett LaSage <garrettl@gmail.com>",
                 "Hylke Bons <hylkebons@gmail.com>",
             ],
-            copyright: "Copyright © 2024-2026 Otabek Sadiridinov",
+            copyright: "Copyright © 2026 Otabek Sadiridinov",
             translator_credits: _("translator-credits"),
             comments: _(
                 "A modern remake of Vocalis, the elegant GNOME sound recorder with advanced noise cancellation.",
             ),
         });
 
-        aboutDialog.add_credit_section(_("Original Project"), [
+        aboutDialog.add_credit_section(_("Original Authors"), [
+            "Christopher Davis <christopherdavis@gnome.org>",
+            "Meg Ford <megford@gnome.org>",
+        ]);
+
+        aboutDialog.add_credit_section(_("Based On"), [
             "Vocalis https://gitlab.gnome.org/World/vocalis",
             "GNOME Sound Recorder https://gitlab.gnome.org/GNOME/gnome-sound-recorder",
         ]);
+
+        aboutDialog.add_credit_section(_("Brought to you by"), [
+            "MohirLab https://mohirlab.uz",
+        ]);
+
+        aboutDialog.add_legal_section(
+            "MohirLab",
+            null,
+            Gtk.License.CUSTOM,
+            _("An open source company and community dedicated to building free and accessible software for everyone."),
+        );
 
         aboutDialog.present(this.window);
     }

@@ -1,7 +1,7 @@
-Senbrua 1.0.0
-=============
+Senbrua 1.0.0 (2026-01-04)
+==========================
 
-Initial release of Senbrua - A simple, modern sound recorder for GNOME.
+Initial release of Senbrua - A modern remake of Vocalis, the elegant GNOME sound recorder.
 
 Features:
 - Record audio in multiple formats (Opus, Vorbis, FLAC, MP3)
@@ -9,12 +9,13 @@ Features:
 - Rename recordings for easy organization
 - Export recordings to your preferred location
 - RNNoise-powered noise reduction (toggleable from sidebar)
-- Dark mode support with libadwaita
+- Theme mode selection (System, Light, Dark)
 - Responsive design - works on desktop and mobile
 - Right sidebar with all controls:
   - Record button
-  - Preferred format selection
-  - Audio channel selection (Stereo/Mono)
+  - Appearance (theme mode selection)
+  - Preferred format selection (radio buttons)
+  - Audio channel selection (Stereo/Mono radio buttons)
   - Noise reduction toggle
   - Keyboard shortcuts
   - About dialog

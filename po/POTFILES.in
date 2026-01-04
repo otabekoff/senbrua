@@ -1,7 +1,7 @@
 # List of source files containing translatable strings
-data/io.github.senbrua.desktop.in.in
-data/io.github.senbrua.metainfo.xml.in.in
-data/io.github.senbrua.gschema.xml.in
+data/uz.mohirlab.senbrua.desktop.in.in
+data/uz.mohirlab.senbrua.metainfo.xml.in.in
+data/uz.mohirlab.senbrua.gschema.xml.in
 data/ui/window.ui
 data/ui/recorder.ui
 data/ui/row.ui

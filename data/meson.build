@@ -6,7 +6,7 @@ install_data(
 
 icon_dir = 'icons' / 'hicolor' / 'symbolic' / 'apps'
 install_data(
-  'icons' / 'hicolor' / 'symbolic' / 'apps' / 'io.github.senbrua-symbolic.svg',
+  'icons' / 'hicolor' / 'symbolic' / 'apps' / 'uz.mohirlab.senbrua-symbolic.svg',
   rename: '@0@-symbolic.svg'.format(application_id),
   install_dir: senbrua_datadir / icon_dir
 )
@@ -15,7 +15,7 @@ desktop_conf = configuration_data()
 desktop_conf.set('app-id', application_id)
 desktop_file = i18n.merge_file(
   input: configure_file(
-    input: 'io.github.senbrua.desktop.in.in',
+    input: 'uz.mohirlab.senbrua.desktop.in.in',
     output: '@BASENAME@',
     configuration: desktop_conf
   ),
@@ -41,7 +41,7 @@ gsettings_conf = configuration_data()
 gsettings_conf.set('app-id', application_id)
 gsettings_conf.set('gettext-package', gettext_package)
 configure_file(
-  input: 'io.github.senbrua.gschema.xml.in',
+  input: 'uz.mohirlab.senbrua.gschema.xml.in',
   output: '@0@.gschema.xml'.format(application_id),
   configuration: gsettings_conf,
   install: true,
@@ -50,7 +50,7 @@ configure_file(
 
 data_res = gnome.compile_resources(
   application_id + '.data',
-  'io.github.senbrua.data.gresource.xml',
+  'uz.mohirlab.senbrua.data.gresource.xml',
   gresource_bundle: true,
   install_dir: senbrua_pkgdatadir,
   install: true
@@ -62,7 +62,7 @@ metainfo_conf.set('gettext-package', gettext_package)
 
 metainfo_file = i18n.merge_file(
   input: configure_file(
-    input: 'io.github.senbrua.metainfo.xml.in.in',
+    input: 'uz.mohirlab.senbrua.metainfo.xml.in.in',
     output: '@BASENAME@',
     configuration: metainfo_conf
   ),

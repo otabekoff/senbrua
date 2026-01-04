@@ -48,7 +48,7 @@ export class Row extends Gtk.ListBoxRow {
     static {
         GObject.registerClass(
             {
-                Template: "resource:///io/github/senbrua/ui/row.ui",
+                Template: "resource:///uz/mohirlab/senbrua/ui/row.ui",
                 InternalChildren: [
                     "playbackStack",
                     "mainStack",

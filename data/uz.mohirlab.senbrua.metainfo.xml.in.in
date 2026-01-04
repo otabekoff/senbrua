@@ -7,27 +7,39 @@
   <summary>Record sound via the microphone and play it back</summary>
   <description>
     <p>
-      Senbrua is a simple, modern sound recorder application for GNOME.
-      It allows you to record audio using your microphone and play it back.
+      Senbrua is a modern remake of Vocalis - a simple and elegant sound recorder
+      application for the GNOME desktop with advanced noise cancellation.
     </p>
     <p>Features:</p>
     <ul>
       <li>Record audio in multiple formats (Opus, Vorbis, FLAC, MP3)</li>
+      <li>RNNoise-powered noise reduction</li>
       <li>Playback recordings with waveform visualization</li>
+      <li>Theme mode switch (System, Light, Dark)</li>
       <li>Rename and export recordings</li>
       <li>Modern GNOME design with libadwaita</li>
     </ul>
   </description>
-  <url type="homepage">https://github.com/senbrua/senbrua</url>
-  <url type="bugtracker">https://github.com/senbrua/senbrua/issues</url>
-  <developer_name>Senbrua Contributors</developer_name>
+  <url type="homepage">https://github.com/otabekoff/senbrua</url>
+  <url type="bugtracker">https://github.com/otabekoff/senbrua/issues</url>
+  <developer id="uz.mohirlab">
+    <name>Otabek Sadiridinov</name>
+  </developer>
   <translation type="gettext">@gettext-package@</translation>
   <launchable type="desktop-id">@app-id@.desktop</launchable>
   <content_rating type="oars-1.1" />
   <releases>
-    <release version="1.0.0" date="2024-01-01">
+    <release version="1.0.0" date="2026-01-04">
       <description>
         <p>Initial release of Senbrua</p>
+        <ul>
+          <li>Record audio in OGG (Vorbis/Opus), FLAC, and MP3 formats</li>
+          <li>RNNoise-powered noise reduction</li>
+          <li>Theme mode selection (System/Light/Dark)</li>
+          <li>Stereo/Mono channel selection</li>
+          <li>Waveform visualization during playback</li>
+          <li>Rename and export recordings</li>
+        </ul>
       </description>
     </release>
   </releases>

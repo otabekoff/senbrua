@@ -7,3 +7,9 @@ option(
     ],
     value: 'default'
 )
+option(
+    'skip_ts',
+    type: 'boolean',
+    value: false,
+    description: 'Skip TypeScript compilation (use pre-compiled JavaScript)'
+)

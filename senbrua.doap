@@ -1,0 +1,24 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <name xml:lang="en">Senbrua</name>
+  <shortdesc xml:lang="en">A simple, modern sound recorder for GNOME</shortdesc>
+  <description>Senbrua is a modern remake of Vocalis - a simple and elegant sound recorder application for the GNOME desktop with advanced noise cancellation.</description>
+  <homepage rdf:resource="https://github.com/otabekoff/senbrua" />
+  <bug-database rdf:resource="https://github.com/otabekoff/senbrua/issues" />
+  <download-page rdf:resource="https://github.com/otabekoff/senbrua/releases" />
+
+  <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
+  <programming-language>TypeScript</programming-language>
+  <programming-language>JavaScript</programming-language>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Otabek Sadiridinov</foaf:name>
+      <foaf:mbox rdf:resource="mailto:sadiridinovotabek@gmail.com" />
+    </foaf:Person>
+  </maintainer>
+</Project>

@@ -20,7 +20,7 @@ else
   version_suffix = ''
 endif
 
-application_id = 'io.github.senbrua@0@'.format(profile)
+application_id = 'uz.mohirlab.senbrua@0@'.format(profile)
 
 gettext_package = application_id
 senbrua_prefix = get_option('prefix')
@@ -49,7 +49,15 @@ dependency('gstreamer-pbutils-1.0')
 gnome = import('gnome')
 i18n = import('i18n')
 
-tsc = find_program('tsc', required: true)
+skip_ts = get_option('skip_ts')
+if skip_ts
+  tsc = disabler()
+else
+  tsc = find_program('tsc', required: false)
+  if not tsc.found()
+    error('TypeScript compiler (tsc) not found. Install it with `npm install -g typescript` or use -Dskip_ts=true')
+  endif
+endif
 
 subdir('data')
 subdir('src')

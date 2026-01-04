@@ -1,7 +1,7 @@
 {
     "name": "senbrua",
     "version": "1.0.0",
-    "description": "A simple, modern sound recorder for GNOME",
+    "description": "A modern remake of Vocalis - a simple and elegant sound recorder for GNOME",
     "main": "src/main.ts",
     "scripts": {
         "lint": "eslint src --ext .ts",
@@ -10,7 +10,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/otabekoff/senbrua"
+        "url": "https://github.com/AkromDev/senbrua"
     },
     "keywords": [
         "gnome",

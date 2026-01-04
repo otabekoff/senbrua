@@ -7,7 +7,7 @@ app_conf.set('GJS', gjs_console)
 app_conf.set('APPLICATION_ID', application_id)
 
 app = configure_file(
-  input: 'io.github.senbrua.in',
+  input: 'uz.mohirlab.senbrua.in',
   output: application_id,
   install: true,
   install_dir: senbrua_pkgdatadir,
@@ -30,30 +30,52 @@ sources = files(
 
 tsc_out = meson.project_build_root() / 'tsc-out'
 
-typescript = custom_target(
-  'typescript-compile',
-  input: sources,
-  build_by_default: true,
-  build_always_stale: true,
-  command: [ tsc, '--project', meson.project_source_root(), '--outDir', tsc_out ],
-  output: ['tsc-output'],
-)
+if skip_ts
+  # Use pre-compiled JavaScript from builddir/tsc-out
+  typescript = disabler()
+  message('Using pre-compiled JavaScript, skipping TypeScript compilation')
+else
+  typescript = custom_target(
+    'typescript-compile',
+    input: sources,
+    build_by_default: true,
+    build_always_stale: true,
+    command: [ tsc, '--project', meson.project_source_root(), '--outDir', tsc_out ],
+    output: ['tsc-output'],
+  )
+endif
 
 source_res_conf = configuration_data()
 source_res_conf.set('profile', profile)
-src_res = gnome.compile_resources(
-  application_id + '.src',
-  configure_file(
-    input: 'io.github.senbrua.src.gresource.xml.in',
-    output: '@BASENAME@',
-    configuration: source_res_conf
-  ),
-  dependencies: typescript,
-  source_dir: tsc_out,
-  gresource_bundle: true,
-  install: true,
-  install_dir: senbrua_pkgdatadir
-)
+
+if skip_ts
+  src_res = gnome.compile_resources(
+    application_id + '.src',
+    configure_file(
+      input: 'uz.mohirlab.senbrua.src.gresource.xml.in',
+      output: '@BASENAME@',
+      configuration: source_res_conf
+    ),
+    source_dir: tsc_out,
+    gresource_bundle: true,
+    install: true,
+    install_dir: senbrua_pkgdatadir
+  )
+else
+  src_res = gnome.compile_resources(
+    application_id + '.src',
+    configure_file(
+      input: 'uz.mohirlab.senbrua.src.gresource.xml.in',
+      output: '@BASENAME@',
+      configuration: source_res_conf
+    ),
+    dependencies: typescript,
+    source_dir: tsc_out,
+    gresource_bundle: true,
+    install: true,
+    install_dir: senbrua_pkgdatadir
+  )
+endif
 
 run_target('run',
   command: app,
