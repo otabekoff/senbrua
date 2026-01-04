@@ -119,10 +119,12 @@ do_snap() {
         return 1
     fi
     cd "$PROJECT_DIR"
-    # Use destructive-mode to avoid LXD networking issues
-    # This builds directly on the host system
-    echo "Building snap in destructive mode (direct host build)..."
-    snapcraft pack --destructive-mode
+    # Try remote build first (uses Launchpad servers)
+    echo "Attempting remote build via Launchpad..."
+    if ! snapcraft remote-build --launchpad-accept-public-upload; then
+        warn "Remote build failed, trying LXD..."
+        snapcraft pack --use-lxd
+    fi
     success "Snap build finished"
 }
 

@@ -86,8 +86,13 @@ snap_release() {
         return 1
     fi
 
-    # Use destructive-mode to avoid LXD networking issues
-    snapcraft pack --destructive-mode
+    # Try remote build first (uses Launchpad, works from any system)
+    # Falls back to destructive-mode if remote fails
+    echo "Attempting remote build via Launchpad..."
+    if ! snapcraft remote-build --launchpad-accept-public-upload; then
+        warn "Remote build failed, trying LXD..."
+        snapcraft pack --use-lxd
+    fi
     SNAP_FILE=$(ls -t *.snap 2>/dev/null | head -1)
 
     if [ -n "${SNAP_FILE:-}" ]; then

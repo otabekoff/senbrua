@@ -30,35 +30,35 @@
   <content_rating type="oars-1.1" />
   <screenshots>
     <screenshot type="default">
-      <image>media/@app-id@/1_no_recordings.png</image>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/1_no_recordings.png</image>
       <caption>Empty state prompting to record</caption>
     </screenshot>
     <screenshot>
-      <image>media/@app-id@/2_recording.png</image>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/2_recording.png</image>
       <caption>Recording in progress with waveform</caption>
     </screenshot>
     <screenshot>
-      <image>media/@app-id@/3_after_recording_stopped.png</image>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/3_after_recording_stopped.png</image>
       <caption>Stop recording confirmation</caption>
     </screenshot>
     <screenshot>
-      <image>media/@app-id@/4_recordings_list_preview.png</image>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/4_recordings_list_preview.png</image>
       <caption>Recordings list with metadata preview</caption>
     </screenshot>
     <screenshot>
-      <image>media/@app-id@/5_shortcuts_window.png</image>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/5_shortcuts_window.png</image>
       <caption>Keyboard shortcuts overlay</caption>
     </screenshot>
     <screenshot>
-      <image>media/@app-id@/6_light_mode.png</image>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/6_light_mode.png</image>
       <caption>Light mode interface</caption>
     </screenshot>
     <screenshot>
-      <image>media/@app-id@/7_app_info.png</image>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/7_app_info.png</image>
       <caption>Application information sidebar</caption>
     </screenshot>
     <screenshot>
-      <image>media/@app-id@/8_credits.png</image>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/8_credits.png</image>
       <caption>About dialog credits page</caption>
     </screenshot>
   </screenshots>
