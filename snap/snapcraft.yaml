@@ -25,7 +25,7 @@ description: |
 
 grade: stable
 confinement: strict
-base: core22
+base: core24
 compression: lzo
 
 slots:
@@ -54,25 +54,14 @@ layout:
     bind: $SNAP/usr/share/glib-2.0/schemas
 
 parts:
-  meson-deps:
-    plugin: nil
-    override-build: |
-      pip3 install --break-system-packages meson
-      craftctl default
-    build-packages:
-      - python3-pip
-    override-prime: ""
-
   senbrua:
-    after: [meson-deps]
     plugin: meson
     source: .
-    build-environment:
-      - PATH: "/usr/local/bin:${PATH}"
     meson-parameters:
       - --prefix=/usr/local
       - -Dskip_ts=true
     build-packages:
+      - meson
       - ninja-build
       - gettext
       - libgjs-dev
@@ -89,7 +78,7 @@ parts:
       - gir1.2-gtk-4.0
     stage-packages:
       - gjs
-      - libgtk-4-1
+      - libgtk-4-1t64
       - libadwaita-1-0
       - libgstreamer1.0-0
       - libgstreamer-plugins-base1.0-0
