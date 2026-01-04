@@ -24,7 +24,7 @@ mkdir -p "$APPIMAGE_WORK/AppDir/usr/share/icons"
 
 # 3. Install to AppDir
 echo "Installing to AppDir..."
-DESTDIR="$APPIMAGE_WORK/AppDir" meson install -C builddir --prefix /usr
+meson install -C builddir --destdir="$APPIMAGE_WORK/AppDir"
 
 # 4. Copy icon
 echo "Copying application icon..."
@@ -37,12 +37,19 @@ cp "$PROJECT_DIR/data/icons/hicolor/scalable/apps/uz.mohirlab.senbrua.svg" \
 cat > "$APPIMAGE_WORK/AppDir/AppRun" << 'APPRUN'
 #!/bin/bash
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-export PATH="$SCRIPT_DIR/usr/bin:$PATH"
-export LD_LIBRARY_PATH="$SCRIPT_DIR/usr/lib:$LD_LIBRARY_PATH"
+export PATH="$SCRIPT_DIR/usr/bin:$SCRIPT_DIR/usr/local/bin:$PATH"
+export LD_LIBRARY_PATH="$SCRIPT_DIR/usr/lib:$SCRIPT_DIR/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
 export XDG_DATA_DIRS="$SCRIPT_DIR/usr/share:$XDG_DATA_DIRS"
 
-# Run the application
-exec "$SCRIPT_DIR/usr/local/bin/senbrua" "$@"
+# Find and run the application
+if [ -f "$SCRIPT_DIR/usr/local/bin/senbrua" ]; then
+    exec "$SCRIPT_DIR/usr/local/bin/senbrua" "$@"
+elif [ -f "$SCRIPT_DIR/usr/bin/senbrua" ]; then
+    exec "$SCRIPT_DIR/usr/bin/senbrua" "$@"
+else
+    echo "Error: Could not find senbrua binary"
+    exit 1
+fi
 APPRUN
 
 chmod +x "$APPIMAGE_WORK/AppDir/AppRun"
