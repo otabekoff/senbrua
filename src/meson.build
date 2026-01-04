@@ -28,13 +28,13 @@ sources = files(
   'window.ts',
 )
 
-tsc_out = meson.project_build_root() / 'tsc-out'
-
 if skip_ts
-  # Use pre-compiled JavaScript from builddir/tsc-out
+  # Use pre-compiled JavaScript from source tree when skipping compilation
+  tsc_out = meson.project_source_root() / 'tsc-out'
   typescript = disabler()
-  message('Using pre-compiled JavaScript, skipping TypeScript compilation')
+  message('Using pre-compiled JavaScript from ' + tsc_out)
 else
+  tsc_out = meson.project_build_root() / 'tsc-out'
   typescript = custom_target(
     'typescript-compile',
     input: sources,
