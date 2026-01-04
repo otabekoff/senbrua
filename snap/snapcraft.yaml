@@ -62,6 +62,7 @@ parts:
       - -Dskip_ts=true
     build-packages:
       - meson
+      - pkg-config
       - ninja-build
       - gettext
       - libgjs-dev
