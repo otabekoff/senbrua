@@ -72,8 +72,10 @@ parts:
       - gir1.2-gstreamer-1.0
       - gir1.2-gst-plugins-base-1.0
     override-build: |
-      # Install TypeScript
-      npm install -g typescript
+      # Skip TypeScript install if already installed
+      if ! command -v tsc &> /dev/null; then
+        npm install -g typescript
+      fi
       craftctl default
     organize:
       usr/local/share/uz.mohirlab.senbrua: usr/share/uz.mohirlab.senbrua
