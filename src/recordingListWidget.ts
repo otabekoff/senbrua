@@ -116,17 +116,19 @@ export class RecordingsListWidget extends Adw.Bin {
 
             row.connect("seek-backward", (row: Row) => {
                 let position = this.player.position - 10 * Gst.SECOND;
-                position = position < 0 || position > row.recording.duration
-                    ? 0
-                    : position;
+                position =
+                    position < 0 || position > row.recording.duration
+                        ? 0
+                        : position;
                 this.player.seek(position);
             });
 
             row.connect("seek-forward", (_row: Row) => {
                 let position = this.player.position + 10 * Gst.SECOND;
-                position = position < 0 || position > _row.recording.duration
-                    ? 0
-                    : position;
+                position =
+                    position < 0 || position > _row.recording.duration
+                        ? 0
+                        : position;
                 this.player.seek(position);
             });
 

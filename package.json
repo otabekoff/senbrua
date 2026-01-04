@@ -10,7 +10,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/senbrua/senbrua"
+        "url": "https://github.com/otabekoff/senbrua"
     },
     "keywords": [
         "gnome",
@@ -18,9 +18,11 @@
         "audio",
         "gjs",
         "gtk4",
-        "libadwaita"
+        "libadwaita",
+        "rnnoise",
+        "noise-cancellation"
     ],
-    "author": "Senbrua Contributors",
+    "author": "Otabek Sadiridinov <sadiridinovotabek@gmail.com>",
     "license": "GPL-3.0-or-later",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^6.0.0",

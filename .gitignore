@@ -18,8 +18,10 @@ node_modules/
 .idea/
 .vscode/
 *.swp
+**/*.swp
 *.swo
 *~
+**/*.*~
 .DS_Store
 
 # Compiled GSettings schemas
@@ -56,3 +58,7 @@ squashfs-root/
 INSTRUCTIONS.md
 TODO.md
 NOTES.md
+
+# Additional
+**/tags.*
+.fenv/

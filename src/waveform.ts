@@ -178,7 +178,8 @@ export class WaveForm extends Gtk.DrawingArea {
     public set peak(p: number) {
         if (this._peaks) {
             if (
-                this._peaks.length > this.get_allocated_width() / (2 * GUTTER)
+                this._peaks.length >
+                this.get_allocated_width() / (2 * GUTTER)
             ) {
                 this._peaks.pop();
             }
@@ -234,8 +235,14 @@ export class WaveForm extends Gtk.DrawingArea {
     }
 
     public destroy(): void {
-        Adw.StyleManager.get_default().disconnect(this.hcId);
-        Adw.StyleManager.get_default().disconnect(this.accentId);
+        if (this.hcId) {
+            Adw.StyleManager.get_default().disconnect(this.hcId);
+            this.hcId = 0;
+        }
+        if (this.accentId) {
+            Adw.StyleManager.get_default().disconnect(this.accentId);
+            this.accentId = 0;
+        }
         this._peaks.length = 0;
         this.queue_draw();
     }

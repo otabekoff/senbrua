@@ -2,17 +2,20 @@ name: senbrua
 version: "1.0.0"
 summary: A simple, modern sound recorder for GNOME
 description: |
-  Senbrua is a simple and elegant sound recorder application for the GNOME 
-  desktop. It allows you to record audio using your microphone and play it 
-  back with a beautiful waveform visualization.
+  Senbrua is a modern remake of Vocalis - a simple and elegant sound recorder 
+  application for the GNOME desktop. It allows you to record audio using your 
+  microphone and play it back with a beautiful waveform visualization.
 
   Features:
   - Record audio in multiple formats (Opus, Vorbis, FLAC, MP3)
   - Playback recordings with interactive waveform visualization
+  - RNNoise-powered noise reduction (toggleable)
   - Rename recordings for easy organization
   - Export recordings to your preferred location
   - Dark mode support with libadwaita
   - Responsive design - works on desktop and mobile
+
+  Based on Vocalis (https://gitlab.gnome.org/World/vocalis)
 
 grade: stable
 confinement: strict
@@ -69,8 +72,10 @@ parts:
       - gir1.2-adw-1
       - gir1.2-gtk-4.0
       - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-base
       - gstreamer1.0-pulseaudio
+      - librnnoise0
     override-build: |
       # Install TypeScript
       npm install -g typescript

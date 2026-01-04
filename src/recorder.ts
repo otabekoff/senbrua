@@ -61,7 +61,7 @@ export class Recorder extends GObject.Object {
     private _duration: number = 0;
     private _current_peak: number = 0;
 
-    private pipeline: Gst.Pipeline;
+    private pipeline!: Gst.Pipeline;
     private level?: Gst.Element;
     private ebin?: Gst.Element;
     private filesink?: Gst.Element;
@@ -70,6 +70,7 @@ export class Recorder extends GObject.Object {
     private file?: Gio.File;
     private timeout?: number | null;
     private pipeState?: Gst.State;
+    private noiseSuppressionPreference: boolean;
 
     static {
         GObject.registerClass(
@@ -104,34 +105,16 @@ export class Recorder extends GObject.Object {
     constructor() {
         super();
         this.peaks = [];
+        this.noiseSuppressionPreference = Settings.get_boolean(
+            "noise-reduction-enabled",
+        );
 
-        let srcElement: Gst.Element;
-        let audioConvert: Gst.Element;
-        const caps = Gst.Caps.from_string("audio/x-raw");
-
-        this.pipeline = new Gst.Pipeline({ name: "pipe" });
-
-        const elements = [
-            ["pulsesrc", "srcElement"],
-            ["audioconvert", "audioConvert"],
-            ["level", "level"],
-            ["encodebin", "ebin"],
-            ["filesink", "filesink"],
-        ].map(([fac, name]) => {
-            const element = Gst.ElementFactory.make(fac, name);
-            if (!element) throw new Error("Not all elements could be created.");
-            this.pipeline.add(element);
-            return element;
-        });
-
-        [srcElement, audioConvert, this.level, this.ebin, this.filesink] =
-            elements;
-
-        srcElement.link(audioConvert);
-        audioConvert.link_filtered(this.level, caps);
+        this.configurePipeline(this.noiseSuppressionPreference);
     }
 
     public start(): void {
+        this.ensurePipelineConfiguration();
+
         let index = 1;
 
         do {
@@ -152,6 +135,7 @@ export class Recorder extends GObject.Object {
         if (this.ebin && this.level && this.filesink) {
             this.ebin.set_property("profile", this.getProfile());
             this.filesink.set_property("location", this.file.get_path());
+            // Link after profile is set (encodebin requires profile before linking)
             this.level.link(this.ebin);
             this.ebin.link(this.filesink);
         }
@@ -189,7 +173,9 @@ export class Recorder extends GObject.Object {
         }
 
         if (
-            this.file && this.file.query_exists(null) && this.peaks.length > 0
+            this.file &&
+            this.file.query_exists(null) &&
+            this.peaks.length > 0
         ) {
             const recording = new Recording(this.file);
             recording.peaks = this.peaks.slice();
@@ -200,14 +186,31 @@ export class Recorder extends GObject.Object {
         return undefined;
     }
 
+    private ensurePipelineConfiguration(): void {
+        const desired = Settings.get_boolean("noise-reduction-enabled");
+        if (desired === this.noiseSuppressionPreference) {
+            return;
+        }
+
+        if (this.pipeline) {
+            this.pipeline.set_state(Gst.State.NULL);
+        }
+
+        this.configurePipeline(desired);
+    }
+
     private onMessageReceived(message: Gst.Message): void {
         switch (message.type) {
             case Gst.MessageType.ELEMENT: {
                 if (GstPbutils.is_missing_plugin_message(message)) {
-                    const detail = GstPbutils
-                        .missing_plugin_message_get_installer_detail(message);
-                    const description = GstPbutils
-                        .missing_plugin_message_get_description(message);
+                    const detail =
+                        GstPbutils.missing_plugin_message_get_installer_detail(
+                            message,
+                        );
+                    const description =
+                        GstPbutils.missing_plugin_message_get_description(
+                            message,
+                        );
                     log(`Detail: ${detail}\nDescription: ${description}`);
                     break;
                 }
@@ -240,6 +243,126 @@ export class Recorder extends GObject.Object {
         }
     }
 
+    private configurePipeline(enableNoise: boolean): void {
+        if (this.pipeline) {
+            this.pipeline.set_state(Gst.State.NULL);
+        }
+
+        this.pipeline = new Gst.Pipeline({ name: "pipe" });
+        this.recordBus = null;
+        this.handlerId = null;
+        this.level = undefined;
+        this.ebin = undefined;
+        this.filesink = undefined;
+
+        const rawCaps = Gst.Caps.from_string("audio/x-raw");
+
+        const srcElement = this.makeElement("pulsesrc", "srcElement");
+        let tail: Gst.Element = srcElement;
+
+        const preConvert = this.makeElement("audioconvert", "preConvert");
+        this.linkElements(tail, preConvert);
+        tail = preConvert;
+
+        if (enableNoise) {
+            // Try audiornnoise (gst-plugins-rs) first, then rnnoise (gst-plugins-bad)
+            let rnnoiseElement = this.tryMakeElement(
+                "audiornnoise",
+                "audiornnoise",
+            );
+            let useF32Format = true;
+
+            if (!rnnoiseElement) {
+                rnnoiseElement = this.tryMakeElement("rnnoise", "rnnoise");
+                useF32Format = false;
+            }
+
+            if (rnnoiseElement) {
+                const resample = this.makeElement(
+                    "audioresample",
+                    "rnnoiseResample",
+                );
+                this.linkElements(tail, resample);
+                tail = resample;
+
+                const capsFilter = this.makeElement(
+                    "capsfilter",
+                    "rnnoiseCaps",
+                );
+                // audiornnoise uses F32LE, rnnoise uses S16LE
+                const rnnoiseCaps = Gst.Caps.from_string(
+                    useF32Format
+                        ? "audio/x-raw,format=F32LE,channels=1,rate=48000"
+                        : "audio/x-raw,format=S16LE,channels=1,rate=48000",
+                );
+                if (rnnoiseCaps) {
+                    capsFilter.set_property("caps", rnnoiseCaps);
+                }
+                this.linkElements(tail, capsFilter);
+                tail = capsFilter;
+
+                this.linkElements(tail, rnnoiseElement);
+                tail = rnnoiseElement;
+
+                const postConvert = this.makeElement(
+                    "audioconvert",
+                    "postConvert",
+                );
+                this.linkElements(tail, postConvert);
+                tail = postConvert;
+            } else {
+                log(
+                    "RNNoise plugin not available - continuing without noise reduction.",
+                );
+            }
+        }
+
+        this.level = this.makeElement("level", "level");
+        if (rawCaps) {
+            this.linkElements(tail, this.level, rawCaps);
+        } else {
+            this.linkElements(tail, this.level);
+        }
+
+        // Create encodebin and filesink but don't link yet - must link after profile is set in start()
+        this.ebin = this.makeElement("encodebin", "ebin");
+        this.filesink = this.makeElement("filesink", "filesink");
+
+        this.noiseSuppressionPreference = enableNoise;
+        this.pipeState = Gst.State.NULL;
+    }
+
+    private makeElement(factory: string, name: string): Gst.Element {
+        const element = Gst.ElementFactory.make(factory, name);
+        if (!element) {
+            throw new Error(`Failed to create element ${factory}`);
+        }
+        this.pipeline.add(element);
+        return element;
+    }
+
+    private tryMakeElement(factory: string, name: string): Gst.Element | null {
+        const element = Gst.ElementFactory.make(factory, name);
+        if (!element) {
+            return null;
+        }
+        this.pipeline.add(element);
+        return element;
+    }
+
+    private linkElements(
+        src: Gst.Element,
+        dest: Gst.Element,
+        caps?: Gst.Caps | null,
+    ): void {
+        const success = caps ? src.link_filtered(dest, caps) : src.link(dest);
+        if (!success) {
+            throw new Error(
+                `Failed to link ${src.get_name()} to ${dest.get_name()}`,
+            );
+        }
+    }
+
     private getChannel(): number {
         const channelIndex = Settings.get_enum("audio-channel");
         return AudioChannels[channelIndex].channels;
@@ -261,8 +384,8 @@ export class Recorder extends GObject.Object {
             );
             const containerCaps = Gst.Caps.from_string(profile.containerCaps);
             if (containerCaps) {
-                const containerProfile = GstPbutils.EncodingContainerProfile
-                    .new(
+                const containerProfile =
+                    GstPbutils.EncodingContainerProfile.new(
                         "record",
                         null,
                         containerCaps,

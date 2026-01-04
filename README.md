@@ -9,17 +9,19 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/senbrua/senbrua/releases">
-    <img src="https://img.shields.io/github/v/release/senbrua/senbrua" alt="Release">
+  <a href="https://github.com/otabekoff/senbrua/releases">
+    <img src="https://img.shields.io/github/v/release/otabekoff/senbrua" alt="Release">
   </a>
-  <a href="https://github.com/senbrua/senbrua/blob/main/COPYING">
-    <img src="https://img.shields.io/github/license/senbrua/senbrua" alt="License">
+  <a href="https://github.com/otabekoff/senbrua/blob/main/COPYING">
+    <img src="https://img.shields.io/github/license/otabekoff/senbrua" alt="License">
   </a>
 </p>
 
+> **Note:** Senbrua is a modern remake of [Vocalis](https://gitlab.gnome.org/World/vocalis), bringing advanced noise cancellation and a refined user experience to the GNOME desktop.
+
 ## About
 
-Senbrua is a simple and elegant sound recorder application for the GNOME desktop. It allows you to record audio using your microphone and play it back with a beautiful waveform visualization.
+Senbrua – An elegant Linux GNOME desktop voice recorder with advanced noise cancellation, designed for high-quality recordings in any environment. Built to be simple, efficient, and user-friendly, supporting multiple audio formats and real-time noise suppression.
 
 ## Features
 
@@ -27,6 +29,7 @@ Senbrua is a simple and elegant sound recorder application for the GNOME desktop
 - 🎵 **Playback recordings** with interactive waveform visualization
 - ✏️ **Rename recordings** for easy organization
 - 📤 **Export recordings** to your preferred location
+- 🔇 **Noise reduction** powered by RNNoise (toggleable)
 - 🌙 **Dark mode support** with libadwaita
 - 📱 **Responsive design** - works on desktop and mobile
 - 🌍 **Internationalization** - supports multiple languages
@@ -54,6 +57,8 @@ flatpak install flathub io.github.senbrua
 - gstreamer-1.0
 - gstreamer-player-1.0 (>= 1.12)
 - gstreamer-pbutils-1.0
+- gstreamer-plugins-bad-1.0 (for RNNoise)
+- librnnoise
 - gobject-introspection (>= 1.31.6)
 - typescript (>= 5.0)
 
@@ -61,7 +66,7 @@ flatpak install flathub io.github.senbrua
 
 ```bash
 # Clone the repository
-git clone https://github.com/senbrua/senbrua.git
+git clone https://github.com/otabekoff/senbrua.git
 cd senbrua
 
 # Configure the build
@@ -99,7 +104,8 @@ snap install senbrua
 2. Click **Stop** when you're done
 3. Your recordings will appear in the list
 4. Click on a recording to play it back
-5. Use the menu to rename, export, or delete recordings
+5. Use the row actions to rename, export, or delete recordings
+6. Toggle **Noise Reduction** from the sidebar when you want RNNoise suppression on or off
 
 ### Keyboard Shortcuts
 

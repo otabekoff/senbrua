@@ -12,74 +12,185 @@
       <object class="AdwToolbarView" id="toolbarView">
         <child type="top">
           <object class="AdwHeaderBar">
-            <child>
-              <object class="GtkButton">
-                <property name="receives_default">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="action_name">recorder.start</property>
-                <child>
-                  <object class="AdwButtonContent">
-                    <property name="icon_name">media-record-symbolic</property>
-                    <property name="label" translatable="yes">Record</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="suggested-action" />
-                </style>
-              </object>
-            </child>
-            <child type="end">
-              <object class="GtkMenuButton">
-                <property name="receives_default">false</property>
-                <property name="menu_model">primaryMenu</property>
-                <property name="icon_name">open-menu-symbolic</property>
-                <property name="tooltip_text" translatable="yes">Main Menu</property>
-                <style>
-                  <class name="image-button" />
-                </style>
-              </object>
-            </child>
           </object>
         </child>
         <child>
           <object class="AdwToastOverlay" id="toastOverlay">
             <property name="child">
-              <object class="GtkStack" id="mainStack">
+              <object class="GtkBox" id="contentBox">
+                <property name="orientation">horizontal</property>
+                <property name="spacing">12</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
+                <property name="margin_start">12</property>
+                <property name="margin_end">12</property>
+                <property name="margin_top">12</property>
+                <property name="margin_bottom">12</property>
                 <child>
-                  <object class="GtkStackPage">
-                    <property name="name">empty</property>
-                    <property name="child">
-                      <object class="AdwStatusPage" id="emptyPage">
-                        <property name="title" translatable="yes">Add Recordings</property>
-                        <property name="description" translatable="yes">Use the
-                          &lt;b&gt;Record&lt;/b&gt; button to make sound recordings</property>
-                      </object>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkStackPage">
-                    <property name="name">recordings</property>
-                    <property name="child">
-                      <object class="GtkScrolledWindow">
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="hscrollbar_policy">never</property>
+                  <object class="GtkStack" id="mainStack">
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">empty</property>
                         <property name="child">
-                          <object class="GtkViewport">
-                            <property name="scroll_to_focus">True</property>
+                          <object class="AdwStatusPage" id="emptyPage">
+                            <property name="title" translatable="yes">Add Recordings</property>
+                            <property name="description" translatable="yes">Use the
+                              &lt;b&gt;Record&lt;/b&gt; button to make sound recordings</property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">recordings</property>
+                        <property name="child">
+                          <object class="GtkScrolledWindow">
+                            <property name="hexpand">True</property>
+                            <property name="vexpand">True</property>
+                            <property name="hscrollbar_policy">never</property>
                             <property name="child">
-                              <object class="AdwClamp" id="column">
-                                <property name="maximum_size">650</property>
+                              <object class="GtkViewport">
+                                <property name="scroll_to_focus">True</property>
+                                <property name="child">
+                                  <object class="AdwClamp" id="column">
+                                    <property name="maximum_size">650</property>
+                                  </object>
+                                </property>
                               </object>
                             </property>
                           </object>
                         </property>
                       </object>
-                    </property>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="orientation">vertical</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="sidebar">
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">12</property>
+                    <property name="width_request">240</property>
+                    <property name="hexpand">False</property>
+                    <child>
+                      <object class="GtkButton" id="recordButton">
+                        <property name="receives_default">False</property>
+                        <property name="action_name">recorder.start</property>
+                        <child>
+                          <object class="AdwButtonContent">
+                            <property name="icon_name">media-record-symbolic</property>
+                            <property name="label" translatable="yes">Record</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="suggested-action" />
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator" />
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">16</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="label" translatable="yes">Preferred Format</property>
+                                <property name="xalign">0</property>
+                                <style>
+                                  <class name="heading" />
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkDropDown" id="formatDropdown">
+                                <property name="hexpand">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="label" translatable="yes">Audio Channel</property>
+                                <property name="xalign">0</property>
+                                <style>
+                                  <class name="heading" />
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkDropDown" id="channelDropdown">
+                                <property name="hexpand">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="orientation">horizontal</property>
+                            <property name="hexpand">True</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="label" translatable="yes">Noise Reduction</property>
+                                <property name="xalign">0</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="noiseSwitch">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="vexpand">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator" />
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkButton" id="shortcutsButton">
+                            <property name="label" translatable="yes">Keyboard Shortcuts</property>
+                            <property name="action_name">win.show-help-overlay</property>
+                            <style>
+                              <class name="flat" />
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="aboutButton">
+                            <property name="label" translatable="yes">About Senbrua</property>
+                            <property name="action_name">app.about</property>
+                            <style>
+                              <class name="flat" />
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -89,52 +200,4 @@
       </object>
     </child>
   </template>
-  <menu id="primaryMenu">
-    <submenu>
-      <attribute translatable="yes" name="label">Preferred Format</attribute>
-      <item>
-        <attribute translatable="yes" name="label">Vorbis</attribute>
-        <attribute name="action">app.audio-profile</attribute>
-        <attribute name="target">vorbis</attribute>
-      </item>
-      <item>
-        <attribute translatable="yes" name="label">Opus</attribute>
-        <attribute name="action">app.audio-profile</attribute>
-        <attribute name="target">opus</attribute>
-      </item>
-      <item>
-        <attribute translatable="yes" name="label">FLAC</attribute>
-        <attribute name="action">app.audio-profile</attribute>
-        <attribute name="target">flac</attribute>
-      </item>
-      <item>
-        <attribute translatable="yes" name="label">MP3</attribute>
-        <attribute name="action">app.audio-profile</attribute>
-        <attribute name="target">mp3</attribute>
-      </item>
-    </submenu>
-    <submenu>
-      <attribute translatable="yes" name="label">Audio Channel</attribute>
-      <item>
-        <attribute translatable="yes" name="label">Stereo</attribute>
-        <attribute name="action">app.audio-channel</attribute>
-        <attribute name="target">stereo</attribute>
-      </item>
-      <item>
-        <attribute translatable="yes" name="label">Mono</attribute>
-        <attribute name="action">app.audio-channel</attribute>
-        <attribute name="target">mono</attribute>
-      </item>
-    </submenu>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
-        <attribute name="action">win.show-help-overlay</attribute>
-      </item>
-      <item>
-        <attribute name="action">app.about</attribute>
-        <attribute name="label" translatable="yes">About Senbrua</attribute>
-      </item>
-    </section>
-  </menu>
 </interface>

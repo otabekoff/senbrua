@@ -1,0 +1,31 @@
+Senbrua 1.0.0
+=============
+
+Initial release of Senbrua - A simple, modern sound recorder for GNOME.
+
+Features:
+- Record audio in multiple formats (Opus, Vorbis, FLAC, MP3)
+- Playback recordings with interactive waveform visualization
+- Rename recordings for easy organization
+- Export recordings to your preferred location
+- RNNoise-powered noise reduction (toggleable from sidebar)
+- Dark mode support with libadwaita
+- Responsive design - works on desktop and mobile
+- Right sidebar with all controls:
+  - Record button
+  - Preferred format selection
+  - Audio channel selection (Stereo/Mono)
+  - Noise reduction toggle
+  - Keyboard shortcuts
+  - About dialog
+- Internationalization support
+
+Dependencies:
+- GTK 4.10+
+- libadwaita 1.4+
+- GStreamer 1.24+
+- GJS 1.54+
+
+Notes:
+- RNNoise noise reduction requires gst-plugins-rs (audiornnoise element)
+- Flatpak and Snap builds include RNNoise bundled

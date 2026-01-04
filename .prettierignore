@@ -1,0 +1,21 @@
+# Build outputs
+builddir/
+build/
+tsc-out/
+
+# Dependencies
+node_modules/
+
+# Type definitions
+gi-types/
+types/
+
+# Other
+*.xml
+*.ui
+*.po
+*.pot
+*.css
+*.json
+*.md
+*.doap

@@ -4,13 +4,13 @@
 
 import Adw from "gi://Adw";
 import Gio from "gi://Gio";
-import GLib from "gi://GLib";
 import GObject from "gi://GObject";
 import Gst from "gi://Gst";
 import GstPlayer from "gi://GstPlayer";
 import Gtk from "gi://Gtk?version=4.0";
 
 import { Recorder } from "./recorder.js";
+import { Settings } from "./application.js";
 import { RecordingList } from "./recordingList.js";
 import { RecordingsListWidget } from "./recordingListWidget.js";
 import { RecorderWidget } from "./recorderWidget.js";
@@ -29,6 +29,9 @@ export class Window extends Adw.ApplicationWindow {
     private _column!: Adw.Clamp;
     private _toastOverlay!: Adw.ToastOverlay;
     private _toolbarView!: Adw.ToolbarView;
+    private _formatDropdown!: Gtk.DropDown;
+    private _channelDropdown!: Gtk.DropDown;
+    private _noiseSwitch!: Gtk.Switch;
 
     private recorder: Recorder;
     private recorderWidget: RecorderWidget;
@@ -36,6 +39,8 @@ export class Window extends Adw.ApplicationWindow {
     private recordingList: RecordingList;
     private itemsSignalId: number;
     private recordingListWidget: RecordingsListWidget;
+    private formatSettingsHandler?: number;
+    private channelSettingsHandler?: number;
 
     private toastUndo: boolean;
     private undoToasts: Adw.Toast[];
@@ -54,6 +59,9 @@ export class Window extends Adw.ApplicationWindow {
                     "column",
                     "toastOverlay",
                     "toolbarView",
+                    "formatDropdown",
+                    "channelDropdown",
+                    "noiseSwitch",
                 ],
             },
             this,
@@ -70,9 +78,8 @@ export class Window extends Adw.ApplicationWindow {
         this.recorderWidget = new RecorderWidget(this.recorder);
         this._mainStack.add_named(this.recorderWidget, "recorder");
 
-        const dispatcher = GstPlayer.PlayerGMainContextSignalDispatcher.new(
-            null,
-        );
+        const dispatcher =
+            GstPlayer.PlayerGMainContextSignalDispatcher.new(null);
         this.player = GstPlayer.Player.new(null, dispatcher);
         this.player.connect("end-of-stream", () => this.player.stop());
 
@@ -110,15 +117,80 @@ export class Window extends Adw.ApplicationWindow {
         this.undoAction = new Gio.SimpleAction({ name: "undo" });
         this.add_action(this.undoAction);
 
-        const openMenuAction = new Gio.SimpleAction({
-            name: "open-primary-menu",
-            state: new GLib.Variant("b", true),
+        const formatStrings = Gtk.StringList.new([
+            _("Vorbis"),
+            _("Opus"),
+            _("FLAC"),
+            _("MP3"),
+        ]);
+        this._formatDropdown.set_model(formatStrings);
+        this._formatDropdown.set_selected(Settings.get_enum("audio-profile"));
+
+        let updatingFormat = false;
+        this._formatDropdown.connect("notify::selected", () => {
+            if (updatingFormat) return;
+            updatingFormat = true;
+            const selected = this._formatDropdown.get_selected();
+            if (selected >= 0) {
+                Settings.set_enum("audio-profile", selected);
+            }
+            updatingFormat = false;
         });
-        openMenuAction.connect("activate", (action) => {
-            const state = action.get_state()?.get_boolean();
-            action.state = new GLib.Variant("b", !state);
+
+        this.formatSettingsHandler = Settings.connect(
+            "changed::audio-profile",
+            () => {
+                updatingFormat = true;
+                this._formatDropdown.set_selected(
+                    Settings.get_enum("audio-profile"),
+                );
+                updatingFormat = false;
+            },
+        );
+
+        const channelStrings = Gtk.StringList.new([_("Stereo"), _("Mono")]);
+        this._channelDropdown.set_model(channelStrings);
+        this._channelDropdown.set_selected(Settings.get_enum("audio-channel"));
+
+        let updatingChannel = false;
+        this._channelDropdown.connect("notify::selected", () => {
+            if (updatingChannel) return;
+            updatingChannel = true;
+            const selected = this._channelDropdown.get_selected();
+            if (selected >= 0) {
+                Settings.set_enum("audio-channel", selected);
+            }
+            updatingChannel = false;
         });
-        this.add_action(openMenuAction);
+
+        this.channelSettingsHandler = Settings.connect(
+            "changed::audio-channel",
+            () => {
+                updatingChannel = true;
+                this._channelDropdown.set_selected(
+                    Settings.get_enum("audio-channel"),
+                );
+                updatingChannel = false;
+            },
+        );
+
+        Settings.bind(
+            "noise-reduction-enabled",
+            this._noiseSwitch,
+            "active",
+            Gio.SettingsBindFlags.DEFAULT,
+        );
+
+        this.connect("destroy", () => {
+            if (this.formatSettingsHandler) {
+                Settings.disconnect(this.formatSettingsHandler);
+                this.formatSettingsHandler = undefined;
+            }
+            if (this.channelSettingsHandler) {
+                Settings.disconnect(this.channelSettingsHandler);
+                this.channelSettingsHandler = undefined;
+            }
+        });
         this._column.set_child(this.recordingListWidget);
 
         this.recorderWidget.connect(

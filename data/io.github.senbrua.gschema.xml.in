@@ -30,5 +30,10 @@
       <summary>Available channels</summary>
       <description>Maps available channels. If there is no mapping set, stereo channel will be used by default.</description>
     </key>
+    <key name="noise-reduction-enabled" type="b">
+      <default>true</default>
+      <summary>Enable RNNoise noise reduction</summary>
+      <description>Whether to run recorded audio through RNNoise noise suppression before encoding.</description>
+    </key>
   </schema>
 </schemalist>

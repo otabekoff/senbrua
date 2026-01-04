@@ -81,6 +81,9 @@ export class Application extends Adw.Application {
         const channelAction = Settings.create_action("audio-channel");
         this.add_action(channelAction);
 
+        const noiseAction = Settings.create_action("noise-reduction-enabled");
+        this.add_action(noiseAction);
+
         const aboutAction = new Gio.SimpleAction({ name: "about" });
         aboutAction.connect("activate", this.showAbout.bind(this));
         this.add_action(aboutAction);
@@ -95,7 +98,6 @@ export class Application extends Adw.Application {
 
         // Keyboard shortcuts
         this.set_accels_for_action("app.quit", ["<Primary>q"]);
-        this.set_accels_for_action("win.open-primary-menu", ["F10"]);
         this.set_accels_for_action("win.show-help-overlay", [
             "<Primary>question",
         ]);
@@ -156,15 +158,28 @@ export class Application extends Adw.Application {
             application_name: appName,
             application_icon: pkg.name,
             version: pkg.version,
-            website: "https://github.com/senbrua/senbrua",
-            issue_url: "https://github.com/senbrua/senbrua/issues",
+            website: "https://github.com/otabekoff/senbrua",
+            issue_url: "https://github.com/otabekoff/senbrua/issues",
             license_type: Gtk.License.GPL_3_0,
             developers: [
-                "Senbrua Contributors",
+                "Otabek Sadiridinov <sadiridinovotabek@gmail.com>",
             ],
-            copyright: "Copyright © 2024 Senbrua Contributors",
+            designers: [
+                "Reda Lazri <the.red.shortcut@gmail.com>",
+                "Garrett LaSage <garrettl@gmail.com>",
+                "Hylke Bons <hylkebons@gmail.com>",
+            ],
+            copyright: "Copyright © 2024-2026 Otabek Sadiridinov",
             translator_credits: _("translator-credits"),
+            comments: _(
+                "A modern remake of Vocalis, the elegant GNOME sound recorder with advanced noise cancellation.",
+            ),
         });
+
+        aboutDialog.add_credit_section(_("Original Project"), [
+            "Vocalis https://gitlab.gnome.org/World/vocalis",
+            "GNOME Sound Recorder https://gitlab.gnome.org/GNOME/gnome-sound-recorder",
+        ]);
 
         aboutDialog.present(this.window);
     }
