@@ -54,18 +54,24 @@ layout:
     bind: $SNAP/usr/share/glib-2.0/schemas
 
 parts:
+  meson-deps:
+    plugin: nil
+    override-build: |
+      pip3 install meson
+      craftctl default
+    build-packages:
+      - python3-pip
+    override-prime: ""
+
   senbrua:
+    after: [meson-deps]
     plugin: meson
     source: .
     meson-parameters:
       - --prefix=/usr/local
       - -Dskip_ts=true
-    override-build: |
-      pip3 install meson
-      craftctl default
     build-packages:
       - ninja-build
-      - python3-pip
       - gettext
       - libgjs-dev
       - libgtk-4-dev
