@@ -86,7 +86,8 @@ snap_release() {
         return 1
     fi
 
-    snapcraft pack --use-lxd
+    # Use destructive-mode to avoid LXD networking issues
+    snapcraft pack --destructive-mode
     SNAP_FILE=$(ls -t *.snap 2>/dev/null | head -1)
 
     if [ -n "${SNAP_FILE:-}" ]; then

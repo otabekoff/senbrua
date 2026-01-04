@@ -119,7 +119,10 @@ do_snap() {
         return 1
     fi
     cd "$PROJECT_DIR"
-    snapcraft --use-lxd
+    # Use destructive-mode to avoid LXD networking issues
+    # This builds directly on the host system
+    echo "Building snap in destructive mode (direct host build)..."
+    snapcraft pack --destructive-mode
     success "Snap build finished"
 }
 
@@ -151,7 +154,21 @@ do_run() {
 
 do_run_installed() {
     heading "Running installed application"
-    senbrua
+    local bin="/usr/local/bin/senbrua"
+    if [[ -L "$bin" ]]; then
+        local target
+        target=$(readlink -f "$bin")
+        if [[ -x "$target" ]]; then
+            "$bin"
+        else
+            # File is not executable, run via gjs
+            gjs -m "$target"
+        fi
+    elif command -v senbrua &>/dev/null; then
+        senbrua
+    else
+        die "senbrua is not installed. Run option 3 first."
+    fi
 }
 
 do_clean() {
@@ -179,8 +196,21 @@ do_git_release() {
 
     read -rp "Tag release v$VERSION? [y/N]: " tag_reply
     if [[ $tag_reply =~ ^[Yy]$ ]]; then
-        git tag -a "v$VERSION" -m "Release v$VERSION"
-        success "Created tag v$VERSION"
+        if git rev-parse "v$VERSION" &>/dev/null; then
+            warn "Tag v$VERSION already exists"
+            read -rp "Delete and recreate tag? [y/N]: " recreate_reply
+            if [[ $recreate_reply =~ ^[Yy]$ ]]; then
+                git tag -d "v$VERSION"
+                git push origin :refs/tags/v$VERSION 2>/dev/null || true
+                git tag -a "v$VERSION" -m "Release v$VERSION"
+                success "Recreated tag v$VERSION"
+            else
+                warn "Keeping existing tag"
+            fi
+        else
+            git tag -a "v$VERSION" -m "Release v$VERSION"
+            success "Created tag v$VERSION"
+        fi
     fi
 
     read -rp "Push to origin? [y/N]: " push_reply

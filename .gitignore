@@ -61,4 +61,7 @@ NOTES.md
 
 # Additional
 **/tags.*
-.fenv/
+.fenv/flatpak-release-repo/
+flatpak-release-build/
+*.flatpak
+*.snap
