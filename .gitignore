@@ -7,8 +7,8 @@ _build/
 repo/
 buildrepo/
 
-# TypeScript output
-tsc-out/
+# TypeScript output (except pre-compiled files in source)
+/builddir/tsc-out/
 *.js.map
 
 # Node modules
