@@ -19,8 +19,6 @@ jobs:
   build-deb:
     name: Build Debian Package
     runs-on: ubuntu-24.04
-    container:
-      image: ghcr.io/${{ github.repository_owner }}/senbrua-ci:latest
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
@@ -114,8 +112,6 @@ jobs:
   build-snap:
     name: Build Snap
     runs-on: ubuntu-22.04
-    container:
-      image: ghcr.io/${{ github.repository_owner }}/senbrua-ci:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -135,8 +131,6 @@ jobs:
   build-appimage:
     name: Build AppImage
     runs-on: ubuntu-24.04
-    container:
-      image: ghcr.io/${{ github.repository_owner }}/senbrua-ci:latest
     needs: build-deb
     steps:
       - name: Checkout code
