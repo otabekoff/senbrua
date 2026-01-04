@@ -46,6 +46,7 @@ parts:
     source: .
     meson-parameters:
       - --prefix=/usr/local
+      - -Dskip_ts=true
     build-packages:
       - meson
       - ninja-build
@@ -62,8 +63,6 @@ parts:
       - gir1.2-gst-plugins-bad-1.0
       - gir1.2-adw-1
       - gir1.2-gtk-4.0
-      - npm
-      - nodejs
     stage-packages:
       - gjs
       - gstreamer1.0-plugins-good
@@ -72,10 +71,6 @@ parts:
       - gir1.2-gstreamer-1.0
       - gir1.2-gst-plugins-base-1.0
     override-build: |
-      # Skip TypeScript install if already installed
-      if ! command -v tsc &> /dev/null; then
-        npm install -g typescript
-      fi
       craftctl default
     organize:
       usr/local/share/uz.mohirlab.senbrua: usr/share/uz.mohirlab.senbrua
