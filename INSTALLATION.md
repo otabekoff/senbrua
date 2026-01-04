@@ -124,14 +124,14 @@ senbrua
 
 ## Recommended Installation Method by Distribution
 
-| Distribution | Recommended Method | Command |
-|---|---|---|
-| **Ubuntu 22.04+** | Flatpak | `flatpak install uz.mohirlab.senbrua` |
-| **Fedora 38+** | Flatpak | `flatpak install uz.mohirlab.senbrua` |
-| **Debian 12+** | .deb package | `sudo apt install uz.mohirlab.senbrua` |
-| **Arch Linux** | AUR | `yay -S uz.mohirlab.senbrua` |
-| **Universal** | Flatpak | `flatpak install uz.mohirlab.senbrua` |
-| **Development** | Local Build | `git clone && meson install` |
+| Distribution      | Recommended Method | Command                                |
+| ----------------- | ------------------ | -------------------------------------- |
+| **Ubuntu 22.04+** | Flatpak            | `flatpak install uz.mohirlab.senbrua`  |
+| **Fedora 38+**    | Flatpak            | `flatpak install uz.mohirlab.senbrua`  |
+| **Debian 12+**    | .deb package       | `sudo apt install uz.mohirlab.senbrua` |
+| **Arch Linux**    | AUR                | `yay -S uz.mohirlab.senbrua`           |
+| **Universal**     | Flatpak            | `flatpak install uz.mohirlab.senbrua`  |
+| **Development**   | Local Build        | `git clone && meson install`           |
 
 ---
 
