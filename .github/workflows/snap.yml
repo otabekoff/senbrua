@@ -1,23 +1,7 @@
 name: Snap CI
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "src/**"
-      - "data/**"
-      - "snap/**"
-      - "meson.build"
-      - "meson_options.txt"
-      - ".github/workflows/snap.yml"
-  pull_request:
-    branches: [main]
-    paths:
-      - "src/**"
-      - "data/**"
-      - "snap/**"
-      - "meson.build"
-      - "meson_options.txt"
+  workflow_dispatch: # Manual trigger only
 
 jobs:
   build:
