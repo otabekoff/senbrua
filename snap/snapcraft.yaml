@@ -57,7 +57,7 @@ parts:
   meson-deps:
     plugin: nil
     override-build: |
-      pip3 install meson
+      pip3 install --break-system-packages meson
       craftctl default
     build-packages:
       - python3-pip
@@ -67,6 +67,8 @@ parts:
     after: [meson-deps]
     plugin: meson
     source: .
+    build-environment:
+      - PATH: "/usr/local/bin:${PATH}"
     meson-parameters:
       - --prefix=/usr/local
       - -Dskip_ts=true
