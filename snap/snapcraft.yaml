@@ -60,8 +60,9 @@ parts:
     meson-parameters:
       - --prefix=/usr/local
       - -Dskip_ts=true
-    build-packages:
+    build-snaps:
       - meson
+    build-packages:
       - ninja-build
       - gettext
       - libgjs-dev
