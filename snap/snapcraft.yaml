@@ -47,7 +47,7 @@ apps:
     desktop: usr/local/share/applications/uz.mohirlab.senbrua.desktop
     common-id: uz.mohirlab.senbrua
     environment:
-      GTK_USE_PORTALS: 1
+      GTK_USE_PORTALS: "1"
 
 layout:
   /usr/share/glib-2.0/schemas:
@@ -64,7 +64,6 @@ parts:
       - meson
       - ninja-build
       - gettext
-      - typescript
       - libgjs-dev
       - libgtk-4-dev
       - libadwaita-1-dev
@@ -80,7 +79,7 @@ parts:
     stage-packages:
       - gjs
       - libgtk-4-1
-      - libadwaita-1
+      - libadwaita-1-0
       - libgstreamer1.0-0
       - libgstreamer-plugins-base1.0-0
       - libgstreamer-plugins-good1.0-0
