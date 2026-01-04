@@ -66,15 +66,11 @@ parts:
       - nodejs
     stage-packages:
       - gjs
-      - gir1.2-gstreamer-1.0
-      - gir1.2-gst-plugins-base-1.0
-      - gir1.2-gst-plugins-bad-1.0
-      - gir1.2-adw-1
-      - gir1.2-gtk-4.0
       - gstreamer1.0-plugins-good
       - gstreamer1.0-plugins-bad
-      - gstreamer1.0-plugins-base
       - gstreamer1.0-pulseaudio
+      - gir1.2-gstreamer-1.0
+      - gir1.2-gst-plugins-base-1.0
     override-build: |
       # Install TypeScript
       npm install -g typescript
