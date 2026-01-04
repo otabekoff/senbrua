@@ -44,7 +44,7 @@ apps:
       - removable-media
       - desktop
       - gsettings
-    desktop: usr/local/share/applications/uz.mohirlab.senbrua.desktop
+    desktop: usr/share/applications/uz.mohirlab.senbrua.desktop
     common-id: uz.mohirlab.senbrua
     environment:
       GTK_USE_PORTALS: "1"
