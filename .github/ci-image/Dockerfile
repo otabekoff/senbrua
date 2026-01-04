@@ -13,7 +13,7 @@ RUN apt-get update \
     python3-pip \
     python3-setuptools \
     gjs \
-    libgjs-1.0-dev \
+    libgjs-dev \
     libgtk-4-dev \
     libadwaita-1-dev \
     libgstreamer1.0-dev \
