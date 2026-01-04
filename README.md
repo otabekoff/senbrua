@@ -40,11 +40,32 @@ Senbrua – An elegant Linux GNOME desktop voice recorder with advanced noise ca
 
 ## Installation
 
-### Flatpak (Recommended)
+### 📦 Package Managers (Recommended)
 
+#### Debian / Ubuntu (.deb)
+```bash
+wget https://github.com/otabekoff/senbrua/releases/download/v1.0.0/uz.mohirlab.senbrua_1.0.0-1_amd64.deb
+sudo dpkg -i uz.mohirlab.senbrua_1.0.0-1_amd64.deb
+```
+
+#### Flatpak
 ```bash
 flatpak install flathub uz.mohirlab.senbrua
 ```
+
+#### Snap
+```bash
+sudo snap install senbrua
+```
+
+#### AppImage (Universal)
+```bash
+wget https://github.com/otabekoff/senbrua/releases/download/v1.0.0/senbrua-1.0.0-x86_64.AppImage
+chmod +x senbrua-1.0.0-x86_64.AppImage
+./senbrua-1.0.0-x86_64.AppImage
+```
+
+For more installation methods and detailed instructions, see [INSTALLATION_METHODS.md](INSTALLATION_METHODS.md).
 
 ### Building from Source
 
