@@ -27,13 +27,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y meson ninja-build gettext gir1.2-gtk-4.0 gir1.2-adw-1 gir1.2-gstreamer-1.0 gir1.2-gst-plugins-base-1.0 gir1.2-gst-plugins-bad-1.0 nodejs npm
-
-      - name: Install Snapcraft
-        uses: snapcore/action-install-snapcraft@v1
-        with:
-          channel: stable
+      - name: Install snapcraft
+        run: sudo apt-get update && sudo apt-get install -y snapcraft
 
       - name: Build Snap
         run: snapcraft --destructive-mode

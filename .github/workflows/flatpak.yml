@@ -25,14 +25,22 @@ jobs:
   flatpak:
     name: Build Flatpak
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub/flathub-worker:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Flatpak
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+      - name: Build Flatpak
+        run: |
+          flatpak-builder --repo=repo --disable-rofiles-fuse --force-clean --arch=x86_64 app uz.mohirlab.senbrua.json
+
+      - name: Create bundle
+        run: |
+          flatpak build-bundle repo senbrua.flatpak uz.mohirlab.senbrua
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          manifest-path: uz.mohirlab.senbrua.json
-          cache-key: flatpak-builder-${{ runner.os }}
-          bundle: senbrua.flatpak
-          branch: main
+          name: senbrua-flatpak
+          path: senbrua.flatpak
