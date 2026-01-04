@@ -1,7 +1,7 @@
 # Senbrua v1.0.0 Release Status
 
-**Release Date**: 2024  
-**Version**: 1.0.0  
+**Release Date**: 2024
+**Version**: 1.0.0
 **Project**: Senbrua (GNOME Sound Recorder)
 
 ---
@@ -17,18 +17,32 @@
 
 ### ✅ Debian / Ubuntu (.deb)
 - **Status**: READY FOR APT INSTALLATION
-- **Method 1 - Direct Download**:
+- **Method 1 - APT Repository (Recommended)** - Automatic updates:
+  ```bash
+  # Add repository (one-time)
+  echo "deb [trusted=yes] https://raw.githubusercontent.com/otabekoff/senbrua/main/apt-repo focal main" | \
+    sudo tee /etc/apt/sources.list.d/senbrua.list
+  sudo apt update
+  
+  # Install
+  sudo apt install senbrua
+  
+  # Future updates: sudo apt upgrade
+  ```
+  
+- **Method 2 - Direct Download**:
   ```bash
   wget https://github.com/otabekoff/senbrua/releases/download/v1.0.0/uz.mohirlab.senbrua_1.0.0-1_amd64.deb
   sudo dpkg -i uz.mohirlab.senbrua_1.0.0-1_amd64.deb
   ```
-- **Method 2 - Launchpad PPA (Recommended)**:
+  
+- **Method 3 - Launchpad PPA (Coming Soon)**:
   ```bash
   sudo add-apt-repository ppa:otabekoff/senbrua
   sudo apt update
   sudo apt install senbrua
   ```
-  *Note: PPA setup guide in [APT_INSTALLATION_GUIDE.md](../APT_INSTALLATION_GUIDE.md)*
+  *Note: Full setup guide in [APT_SETUP_GUIDE.md](APT_SETUP_GUIDE.md)*
 
 - **Tested On**:
   - Ubuntu 20.04+ (all architectures)
@@ -50,8 +64,8 @@
   ```
 
 ### ⏳ Snap (In Progress)
-- **Status**: BUILDING (destructive-mode)
-- **Expected Completion**: <5 minutes
+- **Status**: BUILDING (Since ~11:06 AM)
+- **Current Status**: Still building in LXD container, compiling dependencies
 - **Base**: core22 (Ubuntu 22.04 LTS, compatible with Ubuntu 25.10)
 - **Confinement**: strict
 - **Interfaces**: audio-record, audio-playback, home, removable-media, desktop, gsettings
@@ -59,6 +73,7 @@
   ```bash
   sudo snap install senbrua
   ```
+- **Next Action**: Monitor build completion, then upload with `gh release upload v1.0.0 senbrua_1.0.0_amd64.snap --clobber`
 
 ### ⏳ AppImage (Build Ready)
 - **Status**: SCRIPT READY, AWAITING BUILD
@@ -84,14 +99,14 @@
 
 ## Git Commits (This Session)
 
-| Commit | Message | Impact |
-|--------|---------|--------|
-| 4f0e767 | fix(snap): change base from core24 to core22 | Ubuntu 25.10 compatibility |
-| 36f8309 | fix(snap): remove gnome extension, add explicit interfaces | Desktop integration |
-| e31841e | fix(snap): correct package names for core22 | Build compatibility |
+| Commit  | Message                                                        | Impact                     |
+| ------- | -------------------------------------------------------------- | -------------------------- |
+| 4f0e767 | fix(snap): change base from core24 to core22                   | Ubuntu 25.10 compatibility |
+| 36f8309 | fix(snap): remove gnome extension, add explicit interfaces     | Desktop integration        |
+| e31841e | fix(snap): correct package names for core22                    | Build compatibility        |
 | a81e743 | docs: add installation methods guide and AppImage build script | Multi-distribution support |
-| 0aac3b8 | docs: update README with comprehensive installation methods | User discoverability |
-| 3aec1c4 | fix: correct meson install syntax in AppImage build script | AppImage buildability |
+| 0aac3b8 | docs: update README with comprehensive installation methods    | User discoverability       |
+| 3aec1c4 | fix: correct meson install syntax in AppImage build script     | AppImage buildability      |
 
 ---
 
@@ -139,14 +154,14 @@ chmod +x senbrua-1.0.0-x86_64.AppImage && ./senbrua-1.0.0-x86_64.AppImage
 
 ### Platform Support Matrix
 
-| Platform | Method | Status | Package Manager |
-|----------|--------|--------|-----------------|
-| Ubuntu 20.04+ | .deb | ✅ Ready | APT/DPKG |
-| Debian 11+ | .deb | ✅ Ready | APT/DPKG |
-| Fedora 38+ | RPM | 📋 Planned | DNF/RPM |
-| Any Linux | AppImage | ⏳ Building | Direct execution |
-| Any Linux | Snap | ⏳ Building | Snap |
-| Flathub (all) | Flatpak | ⏳ Review | Flatpak |
+| Platform      | Method   | Status     | Package Manager  |
+| ------------- | -------- | ---------- | ---------------- |
+| Ubuntu 20.04+ | .deb     | ✅ Ready    | APT/DPKG         |
+| Debian 11+    | .deb     | ✅ Ready    | APT/DPKG         |
+| Fedora 38+    | RPM      | 📋 Planned  | DNF/RPM          |
+| Any Linux     | AppImage | ⏳ Building | Direct execution |
+| Any Linux     | Snap     | ⏳ Building | Snap             |
+| Flathub (all) | Flatpak  | ⏳ Review   | Flatpak          |
 
 ---
 

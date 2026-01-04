@@ -42,7 +42,22 @@ Senbrua – An elegant Linux GNOME desktop voice recorder with advanced noise ca
 
 ### 📦 Package Managers (Recommended)
 
-#### Debian / Ubuntu (.deb)
+#### Debian / Ubuntu - APT (Easiest for updates)
+```bash
+# Add APT repository (one-time setup)
+echo "deb [trusted=yes] https://raw.githubusercontent.com/otabekoff/senbrua/main/apt-repo focal main" | \
+  sudo tee /etc/apt/sources.list.d/senbrua.list
+sudo apt update
+
+# Install
+sudo apt install senbrua
+
+# Updates are automatic with: sudo apt upgrade
+```
+
+Or see [APT_SETUP_GUIDE.md](APT_SETUP_GUIDE.md) for more installation options (direct .deb, Launchpad PPA, self-hosted).
+
+#### Debian / Ubuntu - Direct Download
 ```bash
 wget https://github.com/otabekoff/senbrua/releases/download/v1.0.0/uz.mohirlab.senbrua_1.0.0-1_amd64.deb
 sudo dpkg -i uz.mohirlab.senbrua_1.0.0-1_amd64.deb
