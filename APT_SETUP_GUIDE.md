@@ -280,5 +280,5 @@ sudo apt-key add pubkey.asc
 
 ---
 
-**Last Updated**: January 4, 2026  
+**Last Updated**: January 4, 2026
 **Senbrua Version**: 1.0.0

@@ -35,8 +35,8 @@ chmod +x senbrua-1.0.0-x86_64.AppImage
 
 ### 1. **Debian / Ubuntu (.deb)**
 
-**Best for**: Ubuntu 20.04+, Debian 11+  
-**Pros**: System integration, auto-updates (if using PPA)  
+**Best for**: Ubuntu 20.04+, Debian 11+
+**Pros**: System integration, auto-updates (if using PPA)
 **Cons**: Ubuntu/Debian only
 
 #### Direct Installation
@@ -64,8 +64,8 @@ sudo apt remove senbrua
 
 ### 2. **AppImage (Universal)**
 
-**Best for**: Any Linux distribution  
-**Pros**: Works everywhere, no installation needed, portable  
+**Best for**: Any Linux distribution
+**Pros**: Works everywhere, no installation needed, portable
 **Cons**: Larger download size
 
 ```bash
@@ -87,8 +87,8 @@ sudo chmod +x /usr/local/bin/senbrua
 
 ### 3. **Snap Store** *(Waiting for Snap Store approval)*
 
-**Best for**: Ubuntu, Fedora, Arch (with snap support)  
-**Pros**: Secure sandbox, automatic updates  
+**Best for**: Ubuntu, Fedora, Arch (with snap support)
+**Pros**: Secure sandbox, automatic updates
 **Cons**: Slower startup, more disk usage
 
 ```bash
@@ -106,8 +106,8 @@ sudo snap remove senbrua
 
 ### 4. **Flatpak** *(Waiting for Flathub approval)*
 
-**Best for**: Any distribution with Flatpak  
-**Pros**: Universal, sandboxed, always up-to-date  
+**Best for**: Any distribution with Flatpak
+**Pros**: Universal, sandboxed, always up-to-date
 **Cons**: Requires Flatpak runtime
 
 ```bash
@@ -125,7 +125,7 @@ flatpak uninstall uz.mohirlab.senbrua
 
 ### 5. **From Source**
 
-**Best for**: Developers, latest features  
+**Best for**: Developers, latest features
 **Requires**: Meson, Ninja, GJS, GTK4, libadwaita dev files
 
 ```bash
@@ -151,13 +151,13 @@ meson uninstall -C builddir
 
 ## 📊 Installation Methods Comparison
 
-| Method | Distro | Size | Install Time | Auto-Update | Effort |
-|--------|--------|------|--------------|------------|--------|
-| **Debian (.deb)** | Ubuntu, Debian | 880 KB | 10s | ✅ PPA | ⭐ |
-| **AppImage** | Any Linux | ~120 MB | 5s (no install) | ❌ Manual | ⭐ |
-| **Snap** | Ubuntu, Fedora | 80 MB | 30s | ✅ Auto | ⭐⭐ |
-| **Flatpak** | Any distro | 100 MB | 30s | ✅ Auto | ⭐⭐ |
-| **Source** | Any distro | ~10 MB | 2-5 min | ❌ Manual | ⭐⭐⭐ |
+| Method            | Distro         | Size    | Install Time    | Auto-Update | Effort |
+| ----------------- | -------------- | ------- | --------------- | ----------- | ------ |
+| **Debian (.deb)** | Ubuntu, Debian | 880 KB  | 10s             | ✅ PPA       | ⭐      |
+| **AppImage**      | Any Linux      | ~120 MB | 5s (no install) | ❌ Manual    | ⭐      |
+| **Snap**          | Ubuntu, Fedora | 80 MB   | 30s             | ✅ Auto      | ⭐⭐     |
+| **Flatpak**       | Any distro     | 100 MB  | 30s             | ✅ Auto      | ⭐⭐     |
+| **Source**        | Any distro     | ~10 MB  | 2-5 min         | ❌ Manual    | ⭐⭐⭐    |
 
 ---
 
@@ -180,7 +180,7 @@ meson uninstall -C builddir
 ## ❌ Troubleshooting
 
 ### "Command not found: senbrua"
-**Cause**: Installation path issue  
+**Cause**: Installation path issue
 **Solution**:
 ```bash
 # Check if installed
@@ -195,7 +195,7 @@ flatpak run uz.mohirlab.senbrua # If flatpak
 ```
 
 ### "E: Unable to locate package senbrua"
-**Cause**: Repository not added  
+**Cause**: Repository not added
 **Solution**:
 ```bash
 # For .deb:
@@ -204,7 +204,7 @@ sudo dpkg -i uz.mohirlab.senbrua_1.0.0-1_amd64.deb
 ```
 
 ### "Error: could not open shared object file"
-**Cause**: Missing dependencies  
+**Cause**: Missing dependencies
 **Solution**:
 ```bash
 # For .deb:
@@ -215,7 +215,7 @@ sudo apt --fix-broken install
 ```
 
 ### AppImage Won't Run
-**Cause**: Missing FUSE or permissions  
+**Cause**: Missing FUSE or permissions
 **Solution**:
 ```bash
 # Install FUSE (if using AppImage)
@@ -227,7 +227,7 @@ sudo apt install libfuse2
 ```
 
 ### Audio Not Working
-**Cause**: PulseAudio/PipeWire not configured  
+**Cause**: PulseAudio/PipeWire not configured
 **Solution**:
 ```bash
 # Check audio system
@@ -284,7 +284,7 @@ pacmd list-sinks             # List audio devices
 
 ---
 
-**Version**: Senbrua 1.0.0  
-**License**: GNU General Public License v3.0 or later  
-**Repository**: https://github.com/otabekoff/senbrua  
+**Version**: Senbrua 1.0.0
+**License**: GNU General Public License v3.0 or later
+**Repository**: https://github.com/otabekoff/senbrua
 **Issues**: https://github.com/otabekoff/senbrua/issues

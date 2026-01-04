@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>uz.mohirlab.senbrua</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Senbrua</name>
+  <name xml:lang="uz-Cyrl">Сенбруа</name>
+  <name xml:lang="uz-Latn">Senbrua</name>
+  <summary>Record sound via the microphone and play it back</summary>
+  <summary xml:lang="zh-Hant-TW">透過麥克風錄音並回播</summary>
+  <summary xml:lang="zh-Hant-HK">透過麥克風錄音並回播</summary>
+  <summary xml:lang="zh-Hans-CN">通过麦克风录制声音并播放</summary>
+  <summary xml:lang="vi">Thu âm thông qua micrô rồi phát lại nó</summary>
+  <summary xml:lang="uz-Cyrl">Микрофон орқали овоз ёзиб олинг ва ижро этинг</summary>
+  <summary xml:lang="uz-Latn">Mikrofon orqali ovoz yozib oling va ijro eting</summary>
+  <summary xml:lang="uk">Записати звук через мікрофон і програти його</summary>
+  <summary xml:lang="tr">Mikrofonla ses kaydet ve yeniden oynat</summary>
+  <summary xml:lang="th">บันทึกเสียงผ่านไมโครโฟนและเล่นเสียง</summary>
+  <summary xml:lang="te">మైక్రోఫోను ద్వారా శబ్దాన్ని నమోదించి, ఆడించండి</summary>
+  <summary xml:lang="sv">Spela in ljud via mikrofonen och spela upp det</summary>
+  <summary xml:lang="sr-Latn">Snimajte zvuk putem mikrofona i puštajte ga nakon toga</summary>
+  <summary xml:lang="sr-Cyrl">Снимајте звук путем микрофона и пуштајте га након тога</summary>
+  <summary xml:lang="sl">Snemanje zvoka z mikrofonom in predvajanje posnetkov</summary>
+  <summary xml:lang="sk">Nahráva zvuk z mikrofónu a prehráva cez reproduktor</summary>
+  <summary xml:lang="ru">Запись звука с помощью микрофона и последующее его воспроизведение</summary>
+  <summary xml:lang="ro">Înregistrează sunet prin intermediul microfonului și îl redă</summary>
+  <summary xml:lang="pt-BR">Grave som por meio de microfone e reproduza-o</summary>
+  <summary xml:lang="pt">Grave som com o microfone e reproduza-o</summary>
+  <summary xml:lang="pl">Nagrywanie dźwięku przez mikrofon i jego odtwarzanie</summary>
+  <summary xml:lang="pa">ਮਾਈਕਰੋਫੋਨ ਰਾਹੀਂ ਆਵਾਜ਼ ਰਿਕਾਰਡ ਕਰੋ ਅਤੇ ਇਸ ਨੂੰ ਵਾਪਿਸ ਚਲਾਓ</summary>
+  <summary xml:lang="oc">Enregistrar lo son amb un microfòn e lo restituir</summary>
+  <summary xml:lang="nl">Geluid via de microfoon opnemen en het afspelen</summary>
+  <summary xml:lang="ne">माइक्रोफोन मार्फत रेकर्ड गर्नुहोस् र यसलाई बजाउनुहोस्</summary>
+  <summary xml:lang="nb">Ta opp lyd via mikrofonen og spill dem av</summary>
+  <summary xml:lang="ms">Rakam bunyi melalui mikrofon dan mainkannya kembali</summary>
+  <summary xml:lang="ml">മൈക്രോഫോൺ വഴി ശബ്ദം ശേഖരിച്ചിട്ട് കേൾക്കുക</summary>
+  <summary xml:lang="mjw">Aseh microphone pen nep si rot thu</summary>
+  <summary xml:lang="lv">Ierakstiet skaņu caur mikrofonu un to atskaņojiet</summary>
+  <summary xml:lang="lt">Įrašykite garsą mikrofonu ir jį grokite</summary>
+  <summary xml:lang="ko">마이크로 소리를 녹음하고 재생합니다</summary>
+  <summary xml:lang="kk-Cyrl">Дыбыстарды микрофон көмегімен жазып алып, оларды ойнату</summary>
+  <summary xml:lang="ka">ჩაიწერეთ ხმა მიკროფონიდან და დაუკარით ის</summary>
+  <summary xml:lang="ja">マイクからの音声を録音し、再生します</summary>
+  <summary xml:lang="it">Registra i suoni tramite il microfono e li riproduce</summary>
+  <summary xml:lang="is">Taktu upp hljóð í gegnum hljóðnema og spilaðu það svo aftur</summary>
+  <summary xml:lang="ie">Registrar son med vor microfon e reproducter it</summary>
+  <summary xml:lang="id">Rekam suara melalui mikrofon dan putar ulang</summary>
+  <summary xml:lang="hu">Hangfelvétel a mikrofonból és lejátszás</summary>
+  <summary xml:lang="hr">Snimi zvuk putem mikrofona i reproduciraj ga natrag</summary>
+  <summary xml:lang="hi">माइक्रोफोन के माध्यम से ध्वनि रिकॉर्ड करें और उसे वापस सुनें</summary>
+  <summary xml:lang="he">להקליט קול באמצעות המיקרופון ולנגן שוב</summary>
+  <summary xml:lang="gl">Grava son co micrófono e reprodúceo</summary>
+  <summary xml:lang="fur">Regjistre suns cul microfon e ju riprodûs</summary>
+  <summary xml:lang="fr">Enregistrer le son avec un microphone et le restituer</summary>
+  <summary xml:lang="fi">Tallenna ääntä mikrofonilta ja toista tallenteita</summary>
+  <summary xml:lang="fa">ضبط صدا از طریق صدابَر و پخش آن</summary>
+  <summary xml:lang="eu">Grabatu soinua mikrofonoarekin eta erreproduzitu.</summary>
+  <summary xml:lang="es">Grabar sonido con el micrófono y reproducirlo</summary>
+  <summary xml:lang="eo">Registri per la mikrofono kaj legi la sonregistradon</summary>
+  <summary xml:lang="en-GB">Record sound via the microphone and play it back</summary>
+  <summary xml:lang="el">Εγγραφή ήχου μέσα από το μικρόφωνο και αναπαραγωγή του</summary>
+  <summary xml:lang="de">Ton mit dem Mikrofon aufnehmen und wiedergeben</summary>
+  <summary xml:lang="da">Optag lyd via mikrofonen og afspil den</summary>
+  <summary xml:lang="cs">Nahrává mikrofonem zvuk a zpětně jej přehrává</summary>
+  <summary xml:lang="ckb">دەنگ تۆماربکە بە مایکرۆفۆن و دووای لێیبدەرەوە</summary>
+  <summary xml:lang="ca-valencia">Grava un so mitjançant el micròfon i reprodueix-lo</summary>
+  <summary xml:lang="ca">Enregistra un so mitjançant el micròfon i reprodueix-lo</summary>
+  <summary xml:lang="bs-Latn">Snimi zvuk preko mifrofona i pokreni u pozadini</summary>
+  <summary xml:lang="be-Cyrl">Запіс гуку праз мікрафон і прайграванне запісу</summary>
+  <summary xml:lang="as">মাইক্ৰফোনৰ সহায়ত শব্দ ৰেকৰ্ড কৰক আৰু ইয়াক পুনৰ চলাওক</summary>
+  <summary xml:lang="an">Gravar son con o microfono y reproducir-lo</summary>
+  <summary xml:lang="ar">يسجل الأصوات عبر الميكروفون و يعيد تشغيلهم</summary>
+  <summary xml:lang="af">Neem klank op deur die mikrofoon en speel dit terug</summary>
+  <description>
+    <p>
+      Senbrua is a modern remake of Vocalis - a simple and elegant sound recorder
+      application for the GNOME desktop with advanced noise cancellation.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Record audio in multiple formats (Opus, Vorbis, FLAC, MP3)</li>
+      <li>RNNoise-powered noise reduction</li>
+      <li>Playback recordings with waveform visualization</li>
+      <li>Theme mode switch (System, Light, Dark)</li>
+      <li>Rename and export recordings</li>
+      <li>Modern GNOME design with libadwaita</li>
+    </ul>
+  </description>
+  <url type="homepage">https://github.com/otabekoff/senbrua</url>
+  <url type="bugtracker">https://github.com/otabekoff/senbrua/issues</url>
+  <developer id="uz.mohirlab">
+    <name>Otabek Sadiridinov</name>
+  </developer>
+  <translation type="gettext">uz.mohirlab.senbrua</translation>
+  <launchable type="desktop-id">uz.mohirlab.senbrua.desktop</launchable>
+  <content_rating type="oars-1.1"/>
+  <screenshots>
+    <screenshot type="default">
+      <image>
+        https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/1_no_recordings.png</image>
+      <caption>Empty state prompting to record</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/2_recording.png</image>
+      <caption>Recording in progress with waveform</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/3_after_recording_stopped.png</image>
+      <caption>Stop recording confirmation</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/4_recordings_list_preview.png</image>
+      <caption>Recordings list with metadata preview</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/5_shortcuts_window.png</image>
+      <caption>Keyboard shortcuts overlay</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/6_light_mode.png</image>
+      <caption>Light mode interface</caption>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/7_app_info.png</image>
+      <caption>Application information sidebar</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/otabekoff/senbrua/main/data/screenshots/8_credits.png</image>
+      <caption>About dialog credits page</caption>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="1.0.0" date="2026-01-04">
+      <description>
+        <p>Initial release of Senbrua</p>
+        <ul>
+          <li>Record audio in OGG (Vorbis/Opus), FLAC, and MP3 formats</li>
+          <li>RNNoise-powered noise reduction</li>
+          <li>Theme mode selection (System/Light/Dark)</li>
+          <li>Stereo/Mono channel selection</li>
+          <li>Waveform visualization during playback</li>
+          <li>Rename and export recordings</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+</component>

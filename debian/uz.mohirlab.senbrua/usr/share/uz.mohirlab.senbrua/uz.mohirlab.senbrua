@@ -1,0 +1,16 @@
+#!/usr/bin/gjs-console -m
+import GLib from 'gi://GLib';
+import { exit, programArgs } from 'system'
+
+imports.package.init({
+    name: "uz.mohirlab.senbrua",
+    version: "1.0.0",
+    prefix: "/usr",
+    libdir: "/usr/lib/x86_64-linux-gnu"
+});
+
+pkg.initGettext();
+pkg.initFormat();
+
+const module = await import('resource:///uz/mohirlab/senbrua/js/main.js');
+const exitCode = await module.main(programArgs);

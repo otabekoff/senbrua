@@ -1,6 +1,6 @@
 # Senbrua v1.0.0 - APT Installation Ready
 
-**Date**: January 4, 2026  
+**Date**: January 4, 2026
 **Status**: ✅ APT Repository Live and Ready for Users
 
 ---
@@ -43,13 +43,13 @@ apt-repo/
 
 ### Documentation Created
 
-| File | Purpose | Users |
-|------|---------|-------|
+| File                   | Purpose                                                         | Users         |
+| ---------------------- | --------------------------------------------------------------- | ------------- |
 | **APT_SETUP_GUIDE.md** | 4 installation methods (direct, GitHub, Launchpad, self-hosted) | System Admins |
-| **README.md** | Updated with APT as primary installation method | All Users |
-| **RELEASE_STATUS.md** | APT section with full details | Developers |
-| **apt-repo-setup.sh** | One-click setup script for users | End Users |
-| **setup-apt-repo.sh** | Maintainer script to regenerate APT repo | Maintainers |
+| **README.md**          | Updated with APT as primary installation method                 | All Users     |
+| **RELEASE_STATUS.md**  | APT section with full details                                   | Developers    |
+| **apt-repo-setup.sh**  | One-click setup script for users                                | End Users     |
+| **setup-apt-repo.sh**  | Maintainer script to regenerate APT repo                        | Maintainers   |
 
 ### Git Commits
 
@@ -62,14 +62,14 @@ b204271 - feat: add APT repository with v1.0.0 package and metadata
 
 ## 📊 Current Distribution Status
 
-| Method | Status | Installation |
-|--------|--------|--------------|
-| **APT Repository** | ✅ Ready | `sudo apt install senbrua` |
-| **Direct .deb** | ✅ Available | Download from GitHub Release |
-| **Snap** | ⏳ Building | Will be available soon |
-| **Flatpak** | 🔄 Under Review | PR #7479 pending |
-| **AppImage** | ✓ Script Ready | `./build_appimage.sh` |
-| **Source** | ✅ Available | `./build.sh` |
+| Method             | Status         | Installation                 |
+| ------------------ | -------------- | ---------------------------- |
+| **APT Repository** | ✅ Ready        | `sudo apt install senbrua`   |
+| **Direct .deb**    | ✅ Available    | Download from GitHub Release |
+| **Snap**           | ⏳ Building     | Will be available soon       |
+| **Flatpak**        | 🔄 Under Review | PR #7479 pending             |
+| **AppImage**       | ✓ Script Ready | `./build_appimage.sh`        |
+| **Source**         | ✅ Available    | `./build.sh`                 |
 
 ---
 
@@ -77,11 +77,11 @@ b204271 - feat: add APT repository with v1.0.0 package and metadata
 
 ### Repository Configuration
 
-**Type**: GitHub-hosted APT Repository  
-**Base Distribution**: Ubuntu 20.04 Focal  
-**Architecture**: amd64  
-**Package**: uz.mohirlab.senbrua v1.0.0-1  
-**Size**: 882 KB  
+**Type**: GitHub-hosted APT Repository
+**Base Distribution**: Ubuntu 20.04 Focal
+**Architecture**: amd64
+**Package**: uz.mohirlab.senbrua v1.0.0-1
+**Size**: 882 KB
 
 ### Supported Platforms
 
@@ -97,7 +97,7 @@ Package: uz.mohirlab.senbrua
 Version: 1.0.0-1
 Architecture: amd64
 Installed-Size: 1576 KB
-Depends: 
+Depends:
   - dconf-gsettings-backend | gsettings-backend
   - libgtk-4-1 (>= 4.0)
   - libadwaita-1-0
@@ -138,7 +138,7 @@ sudo apt update
       apt_repository:
         repo: "deb [trusted=yes] https://raw.githubusercontent.com/otabekoff/senbrua/main/apt-repo focal main"
         state: present
-    
+
     - name: Install Senbrua
       apt:
         name: senbrua
@@ -162,7 +162,7 @@ For organizations wanting to host internally:
 - **GPG Signing**: Not yet implemented (marked as `[trusted=yes]`)
 - **Repository Verification**: Package checksums available in Packages file
   - MD5sum, SHA1, SHA256, SHA512 provided
-  
+
 ### Future Enhancement
 Create GPG-signed repository:
 
@@ -218,10 +218,10 @@ sudo snap install senbrua
 
 ## 🔗 References
 
-**APT Repository**: https://raw.githubusercontent.com/otabekoff/senbrua/main/apt-repo  
-**GitHub Release**: https://github.com/otabekoff/senbrua/releases/tag/v1.0.0  
-**Installation Guide**: [APT_SETUP_GUIDE.md](APT_SETUP_GUIDE.md)  
-**Release Status**: [RELEASE_STATUS.md](RELEASE_STATUS.md)  
+**APT Repository**: https://raw.githubusercontent.com/otabekoff/senbrua/main/apt-repo
+**GitHub Release**: https://github.com/otabekoff/senbrua/releases/tag/v1.0.0
+**Installation Guide**: [APT_SETUP_GUIDE.md](APT_SETUP_GUIDE.md)
+**Release Status**: [RELEASE_STATUS.md](RELEASE_STATUS.md)
 
 ---
 
@@ -229,11 +229,11 @@ sudo snap install senbrua
 
 Senbrua v1.0.0 is now **ready for public installation** with:
 
-✅ APT repository for automatic updates  
-✅ Comprehensive installation documentation  
-✅ 5 distribution methods  
-✅ Multi-platform support  
-✅ Clean GitHub integration  
+✅ APT repository for automatic updates
+✅ Comprehensive installation documentation
+✅ 5 distribution methods
+✅ Multi-platform support
+✅ Clean GitHub integration
 
 Users can install immediately with `sudo apt install senbrua` after adding the repository.
 

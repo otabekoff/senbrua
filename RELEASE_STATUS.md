@@ -23,19 +23,19 @@
   echo "deb [trusted=yes] https://raw.githubusercontent.com/otabekoff/senbrua/main/apt-repo focal main" | \
     sudo tee /etc/apt/sources.list.d/senbrua.list
   sudo apt update
-  
+
   # Install
   sudo apt install senbrua
-  
+
   # Future updates: sudo apt upgrade
   ```
-  
+
 - **Method 2 - Direct Download**:
   ```bash
   wget https://github.com/otabekoff/senbrua/releases/download/v1.0.0/uz.mohirlab.senbrua_1.0.0-1_amd64.deb
   sudo dpkg -i uz.mohirlab.senbrua_1.0.0-1_amd64.deb
   ```
-  
+
 - **Method 3 - Launchpad PPA (Coming Soon)**:
   ```bash
   sudo add-apt-repository ppa:otabekoff/senbrua

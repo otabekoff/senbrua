@@ -1,0 +1,49 @@
+<schemalist>
+  <enum id="uz.mohirlab.senbrua.AudioProfile">
+    <value nick='vorbis' value='0'/>
+    <value nick='opus' value='1'/>
+    <value nick='flac' value='2'/>
+    <value nick='mp3' value='3'/>
+  </enum>
+  <enum id="uz.mohirlab.senbrua.AudioChannel">
+    <value nick='stereo' value='0'/>
+    <value nick='mono' value='1'/>
+  </enum>
+  <enum id="uz.mohirlab.senbrua.ColorScheme">
+    <value nick='system' value='0'/>
+    <value nick='light' value='1'/>
+    <value nick='dark' value='2'/>
+  </enum>
+  <schema id="uz.mohirlab.senbrua" path="/uz/mohirlab/senbrua/" gettext-domain="uz.mohirlab.senbrua">
+    <key name="window-size" type="ai">
+      <default>[780, 480]</default>
+      <summary>Window size</summary>
+      <description>Window size (width and height).</description>
+    </key>
+    <key name="window-position" type="ai">
+      <default>[]</default>
+      <summary>Window position</summary>
+      <description>Window position (x and y).</description>
+    </key>
+    <key name="color-scheme" enum="uz.mohirlab.senbrua.ColorScheme">
+      <default>'system'</default>
+      <summary>Color scheme preference</summary>
+      <description>The preferred color scheme for the application (system, light, or dark).</description>
+    </key>
+    <key name="audio-profile" enum="uz.mohirlab.senbrua.AudioProfile">
+      <default>'opus'</default>
+      <summary>Maps media types to audio encoder preset names.</summary>
+      <description>Maps media types to audio encoder preset names. If there is no mapping set, the default encoder settings will be used.</description>
+    </key>
+    <key name="audio-channel" enum="uz.mohirlab.senbrua.AudioChannel">
+      <default>'stereo'</default>
+      <summary>Available channels</summary>
+      <description>Maps available channels. If there is no mapping set, stereo channel will be used by default.</description>
+    </key>
+    <key name="noise-reduction-enabled" type="b">
+      <default>true</default>
+      <summary>Enable RNNoise noise reduction</summary>
+      <description>Whether to run recorded audio through RNNoise noise suppression before encoding.</description>
+    </key>
+  </schema>
+</schemalist>
