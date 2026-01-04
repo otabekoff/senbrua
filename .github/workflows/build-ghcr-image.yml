@@ -8,13 +8,14 @@ on:
     paths:
       - '.github/ci-image/**'
 
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
 jobs:
   build-and-push:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
