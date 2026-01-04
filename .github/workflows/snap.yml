@@ -28,10 +28,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install snapcraft
-        run: sudo apt-get update && sudo apt-get install -y snapcraft
+        run: sudo snap install --classic snapcraft
 
       - name: Build Snap
-        run: snapcraft --destructive-mode
+        run: snapcraft pack
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

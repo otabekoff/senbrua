@@ -25,15 +25,26 @@ jobs:
   flatpak:
     name: Build Flatpak
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/flathub/flathub-worker:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
+
+      - name: Add flathub remote
+        run: |
+          flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo || true
+
+      - name: Install GNOME runtime
+        run: |
+          flatpak install --user -y --noninteractive flathub org.gnome.Platform//46 org.gnome.Sdk//46
+
       - name: Build Flatpak
         run: |
-          flatpak-builder --repo=repo --disable-rofiles-fuse --force-clean --arch=x86_64 app uz.mohirlab.senbrua.json
+          flatpak-builder --repo=repo --user --install-deps-from=flathub --force-clean --arch=x86_64 app uz.mohirlab.senbrua.json
 
       - name: Create bundle
         run: |
