@@ -1,0 +1,9 @@
+Origin: Senbrua
+Label: Senbrua
+Suite: focal
+Codename: focal
+Version: 20.04
+Architectures: amd64
+Components: main
+Description: Senbrua - Modern Sound Recorder for GNOME
+Date: Sat, 04 Jan 2026 12:35:00 +0000

@@ -1,0 +1,20 @@
+Package: uz.mohirlab.senbrua
+Architecture: amd64
+Version: 1.0.0-1
+Priority: optional
+Section: sound
+Maintainer: Otabek Sadiridinov <sadiridinovotabek@gmail.com>
+Installed-Size: 1576
+Depends: dconf-gsettings-backend | gsettings-backend, libgtk-4-1 (>= 4.0), libadwaita-1-0, libgstreamer1.0-0, libgstreamer-plugins-base1.0-0, gstreamer1.0-plugins-base, gstreamer1.0-plugins-good, gstreamer1.0-pulseaudio
+Filename: apt-repo/pool/main/s/senbrua/uz.mohirlab.senbrua_1.0.0-1_amd64.deb
+Size: 902036
+MD5sum: b931875ccdf71435d95b66f202927c35
+SHA1: e4139024f75f54dce19c37c6d8e562205074d2b1
+SHA256: 54f8628346c55744e2cbce0e4b37f40691abfaf7cd0124f3c6d334629b15f724
+SHA512: 6690f370bc0319506164dc8669ef02a8b54552c7d58131df99110329241621b145028858fc50449b9b992f16e6f827b704842d1d5d22c49ef272bb71694c4463
+Homepage: https://github.com/otabekoff/senbrua
+Description: Modern sound recorder for GNOME
+  A modern remake of Vocalis, providing simple audio recording for GNOME.
+  Features include noise reduction, multiple audio formats, and real-time waveform visualization.
+  Created as an improved version of Vocalis with modern design.
+
