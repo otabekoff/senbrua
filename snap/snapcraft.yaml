@@ -75,7 +75,6 @@ parts:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-base
       - gstreamer1.0-pulseaudio
-      - librnnoise0
     override-build: |
       # Install TypeScript
       npm install -g typescript
