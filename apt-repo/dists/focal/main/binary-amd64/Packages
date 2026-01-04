@@ -26,11 +26,11 @@ Section: sound
 Maintainer: Otabek Sadiridinov <sadiridinovotabek@gmail.com>
 Depends: gjs, libgtk-4-1, libadwaita-1-0, libgstreamer1.0-0, libgstreamer-plugins-base1.0-0, gstreamer1.0-plugins-base, gstreamer1.0-plugins-good, gstreamer1.0-pulseaudio
 Filename: pool/main/s/senbrua/uz.mohirlab.senbrua_1.0.1-1_amd64.deb
-Size: 899462
-MD5sum: 6f7338f61b1de9179d4363c7b1196388
-SHA1: 3770d5b80b79c340f6f4ede10bc7aff902ac753f
-SHA256: a09ce99ddbbf1970f92173d3c2e89a36197432e2ce066934ae61b2e485c94428
-SHA512: 99c70f1fc231a9d427d7687d3efa3dec243637e76be94f5e09db54876a5edfe5ff000f8162939bd1a965620eacc0eb4d7b68dc12826fcd3e0718cd69d4b8680b
+Size: 899466
+MD5sum: 8fd7166e8605f0ceb0750e2fc50b1687
+SHA1: 75e9ff014add3dca87892f79cedb6fe986b0bbbe
+SHA256: 1e387b7c951ec608da2f82e19c65158ab843e718b7b971725efbb244e22869cc
+SHA512: 741af071e8c66adf424ce6810da8a940ae5dc4e360d89fe45658c60ca75cd8a5aa521f82232311f2dfd43f630d798c9ed31dd9031513deec93550eec9a67115c
 Homepage: https://github.com/otabekoff/senbrua
 Description: Modern sound recorder for GNOME
  A modern remake of Vocalis, providing simple audio recording for GNOME.
